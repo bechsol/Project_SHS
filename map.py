@@ -78,9 +78,9 @@ class Wall(Tile):
     def __init__(self, x, y, image_data):
         super().__init__(False, x, y, image_data)
 
-class Wall_Fence_1(Tile):
+class Wall_Fence_1(Wall):
     def __init__(self, x, y, image_data):
-        super().__init__(False, x, y, image_data)
+        super().__init__(x, y, image_data)
 
 
 

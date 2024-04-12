@@ -41,16 +41,40 @@ class Player:
     def move_up(self, map_tiles):
         for row in map_tiles:
             for tile in row:
-                if tile is not None:
-                    if (self.x > tile.x - self.x_size and self.x < tile.x + TILE_SIZE and self.y - self.speed < tile.y + TILE_SIZE and self.y - self.speed > tile.y):
+                if tile.is_walkable() == False:
+                    if (self.x - self.x_size//2 > tile.x*TILE_SIZE - self.x_size and self.x - self.x_size//2 < tile.x*TILE_SIZE + TILE_SIZE and self.y - self.y_size//2 - self.speed < tile.y*TILE_SIZE + TILE_SIZE and self.y - self.y_size//2 - self.speed > tile.y*TILE_SIZE):
+                        print("collision")
+                        self.y = tile.y*TILE_SIZE + TILE_SIZE + self.y_size//2
                         return
         self.y -= self.speed
 
     def move_down(self, map_tiles):
+        for row in map_tiles:
+            for tile in row:
+                if tile.is_walkable() == False:
+                    if (self.x - self.x_size//2 > tile.x*TILE_SIZE - self.x_size and self.x - self.x_size//2 < tile.x*TILE_SIZE + TILE_SIZE and self.y + self.y_size//2 + self.speed < tile.y*TILE_SIZE + TILE_SIZE and self.y + self.y_size//2 + self.speed > tile.y*TILE_SIZE):
+                        print("collision")
+                        self.y = tile.y*TILE_SIZE - self.y_size//2
+                        return
         self.y += self.speed
+
     
     def move_left(self, map_tiles): 
+        for row in map_tiles:
+            for tile in row:
+                if tile.is_walkable() == False:
+                    if (self.y - self.y_size//2 > tile.y*TILE_SIZE - self.y_size and self.y - self.y_size//2 < tile.y*TILE_SIZE + TILE_SIZE and self.x - self.x_size//2 - self.speed < tile.x*TILE_SIZE + TILE_SIZE and self.x - self.x_size//2 - self.speed > tile.x*TILE_SIZE):
+                        print("collision")
+                        self.x = tile.x*TILE_SIZE + TILE_SIZE + self.x_size//2
+                        return
         self.x -= self.speed
 
     def move_right(self, map_tiles):
+        for row in map_tiles:
+            for tile in row:
+                if not tile.is_walkable():
+                    if (self.y - self.y_size//2 > tile.y*TILE_SIZE - self.y_size and self.y - self.y_size//2 < tile.y*TILE_SIZE + TILE_SIZE and self.x + self.x_size//2 + self.speed < tile.x*TILE_SIZE + TILE_SIZE and self.x + self.x_size//2 + self.speed > tile.x*TILE_SIZE):
+                        print("collision")
+                        self.x = tile.x*TILE_SIZE - self.x_size//2
+                        return
         self.x += self.speed

@@ -29,8 +29,6 @@ def handle_input(player, map_tiles):
 
 
 # Initialize pygame
-
-
 pygame.init()
 
 
@@ -46,7 +44,7 @@ map1 = Map(30, 20)
 map1.load_tmx("map_test.tmx")
 print(map1.tiles)
 
-player = Player(WINDOW_WIDTH, WINDOW_HEIGHT)
+player = Player(WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
 
 # Game loop
 running = True
