@@ -9,12 +9,13 @@ WINDOW_WIDTH = TILE_SIZE*16
 WINDOW_HEIGHT = TILE_SIZE*9
 
 class Player:
-    def __init__(self, x, y, x_size=64, y_size=64):
+    def __init__(self, x, y, x_size=48, y_size=48):
         self.x = x
         self.y = y
         self.x_size = x_size
         self.y_size = y_size
         self.speed = 3
+        self.sign_sensitivity = 2
 
     def render(self, window):
         # Calculate the position and size of the rectangle
@@ -43,7 +44,6 @@ class Player:
             for tile in row:
                 if tile.is_walkable() == False:
                     if (self.x - self.x_size//2 > tile.x*TILE_SIZE - self.x_size and self.x - self.x_size//2 < tile.x*TILE_SIZE + TILE_SIZE and self.y - self.y_size//2 - self.speed < tile.y*TILE_SIZE + TILE_SIZE and self.y - self.y_size//2 - self.speed > tile.y*TILE_SIZE):
-                        print("collision")
                         self.y = tile.y*TILE_SIZE + TILE_SIZE + self.y_size//2
                         return
         self.y -= self.speed
@@ -53,7 +53,6 @@ class Player:
             for tile in row:
                 if tile.is_walkable() == False:
                     if (self.x - self.x_size//2 > tile.x*TILE_SIZE - self.x_size and self.x - self.x_size//2 < tile.x*TILE_SIZE + TILE_SIZE and self.y + self.y_size//2 + self.speed < tile.y*TILE_SIZE + TILE_SIZE and self.y + self.y_size//2 + self.speed > tile.y*TILE_SIZE):
-                        print("collision")
                         self.y = tile.y*TILE_SIZE - self.y_size//2
                         return
         self.y += self.speed
@@ -64,7 +63,6 @@ class Player:
             for tile in row:
                 if tile.is_walkable() == False:
                     if (self.y - self.y_size//2 > tile.y*TILE_SIZE - self.y_size and self.y - self.y_size//2 < tile.y*TILE_SIZE + TILE_SIZE and self.x - self.x_size//2 - self.speed < tile.x*TILE_SIZE + TILE_SIZE and self.x - self.x_size//2 - self.speed > tile.x*TILE_SIZE):
-                        print("collision")
                         self.x = tile.x*TILE_SIZE + TILE_SIZE + self.x_size//2
                         return
         self.x -= self.speed
@@ -74,7 +72,7 @@ class Player:
             for tile in row:
                 if not tile.is_walkable():
                     if (self.y - self.y_size//2 > tile.y*TILE_SIZE - self.y_size and self.y - self.y_size//2 < tile.y*TILE_SIZE + TILE_SIZE and self.x + self.x_size//2 + self.speed < tile.x*TILE_SIZE + TILE_SIZE and self.x + self.x_size//2 + self.speed > tile.x*TILE_SIZE):
-                        print("collision")
                         self.x = tile.x*TILE_SIZE - self.x_size//2
                         return
         self.x += self.speed
+
