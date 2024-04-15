@@ -86,7 +86,7 @@ class Map:
         self.height = height
         self.tiles = [[None for _ in range(width)] for _ in range(height)]
         self.interactable_tiles = []
-        self.wall_tiles_id = [1, 2, 3, 4, 7, 11, 12, 13, 19, 20, 23, 24, 33, 34]
+        #self.wall_tiles_id = [1, 2, 3, 4, 7, 11, 12, 13, 19, 20, 23, 24, 33, 34]
 
     def load_tmx(self, filename):
 
@@ -98,12 +98,13 @@ class Map:
             for y in range(tmxdata.height):
                 im = tmxdata.get_tile_image(x, y, 0)
                 gid = tmxdata.get_tile_gid(x, y, 0)
+                print(tmxdata.get_tile_properties_by_gid(gid))
 
                 if im != None:
-                    if gid == 14:
+                    if tmxdata.get_tile_properties_by_gid(gid) == "Sign":
                         self.tiles[y][x] = Sign(x, y, im, "Hello I am a sign!")
                         self.interactable_tiles.append(self.tiles[y][x])
-                    elif gid in self.wall_tiles_id:
+                    elif tmxdata.get_tile_properties_by_gid(gid) == "Wall":
                         self.tiles[y][x] = Wall(x, y, im)
                     else:
                         self.tiles[y][x] = Floor(x, y, im)
