@@ -18,16 +18,12 @@ TILE_SIZE = 64
 SCALE_FACTOR = 2
 
 sprite1 = pygame.image.load("pixil-frame-0.png")
-sprite1_bis = pygame.image.load("pixil-frame-1.png")
 
 class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
-        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,sprite1,sprite1_bis)
-#        print(GS.me.sprites())
-#        print(GS.all_sprites_list.sprites())
-        # For displaying text on the screen
+        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,sprite1)
         self.font = pygame.font.Font(None, 36)  # Font for the sign text
         self.text_color = (255, 255, 255)  # White text color
         self.background_color = (139, 69, 19)  # Brown background color
@@ -62,11 +58,8 @@ class Scene:
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-        if GS.me.has() :
-            GS.me.draw(window)
-#        if GS.bound.has():
-#            GS.bound.update()
-#            GS.bound.draw(window)
+        GS.me.update()
+        GS.me.draw(window)
         if self.display_text:
             self.show_text(window, self.text_to_display)
 
