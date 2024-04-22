@@ -37,6 +37,7 @@
     "openFiles": [
     ],
     "project": "maps.tiled-project",
+    "property.type": "string",
     "recentFiles": [
         "map_test.tmx",
         "map1.tmx",
