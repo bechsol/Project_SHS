@@ -17,15 +17,17 @@ TILE_SIZE = 64
 
 SCALE_FACTOR = 2
 
-sprite1 = pygame.image.load("pixil-frame-0.png")
-
+perso_front = pygame.image.load("pixil-frame-0.png")
+perso_back = pygame.image.load("pixil-frame-1.png")
+perso_left = pygame.image.load("pixil-frame-0.png")
+perso_right = pygame.image.load("pixil-frame-1.png")
 
 class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
         #self.player = Player(WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
-        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,sprite1)
+        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[perso_front,perso_back,perso_left,perso_right])
 
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False

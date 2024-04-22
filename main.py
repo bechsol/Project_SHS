@@ -1,8 +1,7 @@
 import pygame
 
 from map import Scene
-
-
+from player import Perso
 
 MAP_WIDTH = 30
 MAP_HEIGHT = 20
