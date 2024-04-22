@@ -63,6 +63,12 @@ class Perso(Sprite):
         # Draw the rectangle on the screen
         #pygame.draw.rect(window, (255, 0, 0), (rect_x, rect_y, rect_width, rect_height))
 
+    def rot_sprite(self, angle) :
+#rotate an image around the bottom left corner
+        self.image = pygame.transform.rotate(self.image, angle)
+        self.rect = self.image.get_rect(center = self.rect.bottomleft)
+
+
     def move_up(self, map_tiles):
         for row in map_tiles:
             for tile in row:
