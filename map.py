@@ -1,7 +1,7 @@
 from pytmx import TiledMap
 import pygame
 
-from player import Perso
+from player import Perso, Pnj
 from player import Game_Sprite as GS
 
 
@@ -50,27 +50,27 @@ athena_vener = [athena.subsurface((16,651,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 androm = pygame.image.load("andromaque.png")
 androm_d = androm.subsurface((0,128,832,64))
-androm_dance = [androm_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+androm_dance = [androm_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
-    androm_dance += [androm_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+    androm_dance += [androm_d.subsurface((64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 
 hecu = pygame.image.load("hecube.png")
 hecu_d = hecu.subsurface((0,128,832,64))
-hecu_dance = [hecu_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+hecu_dance = [hecu_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
-    hecu_dance += [hecu_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+    hecu_dance += [hecu_d.subsurface((64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 
 cass = pygame.image.load("cassandre.png")
 cass_d = cass.subsurface((0,128,832,64))
-cass_dance = [cass_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+cass_dance = [cass_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
-    cass_dance += [cass_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+    cass_dance += [cass_d.subsurface((0 + 64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 
 poly = pygame.image.load("polyxene.png")
 poly_d = poly.subsurface((0,128,832,64))
-poly_dance = [poly_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+poly_dance = [poly_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
-    poly_dance += [poly_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+    poly_dance += [poly_d.subsurface((64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 
 troy_horse = pygame.image.load("troy_horse.png")
 cheval = troy_horse.subsurface((576,0,256,384))
@@ -81,9 +81,8 @@ class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
-        #self.player = Player(WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
         self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_array,main_back_array,main_left_array,main_right_array])
-
+#        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
 
@@ -228,7 +227,10 @@ class Scene:
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
+#        self.cassandre.dance()
         GS.me.update()
+        GS.pnj.update()
+        GS.pnj.draw(window)
         GS.me.draw(window)
         if not self.filter2.enabled:
             self.filter1.apply(window)
