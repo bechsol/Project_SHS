@@ -13,10 +13,6 @@ WINDOW_HEIGHT = TILE_SIZE*9
 
 FPS = 60
 
-
-# Functions
-
-
 # Initialize pygame
 pygame.init()
 
@@ -34,13 +30,9 @@ scene_1 = Scene("map1.tmx")
 # Game loop
 running = True
 while running:
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
 
     # Update game logic
-    scene_1.handle_input()
+    running = scene_1.handle_input()
     
 
     # Render graphics

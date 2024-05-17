@@ -58,45 +58,84 @@ class Scene:
         self.filter2.enabled = False
 
         # For displaying text on the screen
-        self.font = pygame.font.Font(None, 36)  # Font for the sign text
+        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
         self.text_color = (255, 255, 255)  # White text color
         self.background_color = (139, 69, 19)  # Brown background color
         self.display_text = False
         self.text_to_display = "Error: Text not set!"
+        
+        self.enable_dialogue = False
+        self.dialogue_1 = [
+            "Aie, ma tête... ",
+            "Mais... Mais où je suis moi?",
+            "Ça me revient, l\'assaut de Troie! Mais où sont passé les autres? Où est mon armée troyenne... je veux dire athénienne... Non, troyenne...",
+            "Le coup que j'ai reçu devait être plus fort que je ne le pensais, je n'arrive même pas à me souvenir de mon camp.",
+            "Je devrais explorer les environs, trouver des indices, ça devrait m'aider à me rafraichir la mémoire."
+        ]
+        self.dialogue_2 = [
+            "Oh un cheval en bois... Mais oui c'est ça le cheval de bois ! Quelle ruse malicieuse ! Il me semble que l'idée venait d'Ulysse et que Epeos a dirigé la construction. Mais... Mais... ",
+            "Je suis sûr de louper quelque chose...",
+            "... des lances cachées en son sein...",
+            "Une ruse malicieuse... Ou bien une trahison écoeurante! Transformer une offrande en arme, quelle immondice.",
+            "Tout est si flou, je ne sais plus quoi croire... Il faudrait que je continue de chercher."
+        ]
+        self.current_dialogue = self.dialogue_2
+        self.current_text_number = 0
+
     
     def handle_input(self):
         self.filter1.update_animation()
         self.filter2.update_animation()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
-            if not self.display_text:
+            if not self.display_text and not self.enable_dialogue:
                 self.player.move_up(self.map.tiles)
         if keys[pygame.K_DOWN]:
-            if not self.display_text:
+            if not self.display_text and not self.enable_dialogue:
                 self.player.move_down(self.map.tiles)
         if keys[pygame.K_LEFT]:
-            if not self.display_text:
+            if not self.display_text and not self.enable_dialogue:
                 self.player.move_left(self.map.tiles)
         if keys[pygame.K_RIGHT]:
-            if not self.display_text:
+            if not self.display_text and not self.enable_dialogue:
                 self.player.move_right(self.map.tiles)
         if keys[pygame.K_SPACE]:
-            self.filter1.enable()
             for tile in self.map.interactable_tiles:
                 if (self.player.x - self.player.x_size//2 > tile.x*TILE_SIZE - self.player.x_size - self.player.sign_sensitivity and self.player.x - self.player.x_size//2 < tile.x*TILE_SIZE + TILE_SIZE + self.player.sign_sensitivity and self.player.y - self.player.y_size//2 > tile.y*TILE_SIZE - self.player.y_size - self.player.sign_sensitivity and self.player.y - self.player.y_size//2 < tile.y*TILE_SIZE + TILE_SIZE + self.player.sign_sensitivity):
                     interact_type, interact_data = tile.interact()
                     if interact_type == "sign":
+                        self.filter1.enable()
                         self.display_text = True
                         self.text_to_display = interact_data
         if keys[pygame.K_ESCAPE]:
             self.display_text = False
             self.filter1.disable()
 
-        if keys[pygame.K_RETURN]:
-            if self.filter2.enabled and not self.filter2.is_animating():
-                self.filter2.disable()
-            elif not self.filter2.enabled and not self.filter2.is_animating():   
-                self.filter2.enable()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_KP_ENTER:
+                    if self.filter2.enabled and not self.filter2.is_animating():
+                        self.filter2.disable()
+                    elif not self.filter2.enabled and not self.filter2.is_animating():   
+                        self.filter2.enable()
+                
+                if event.key == pygame.K_k:
+                    if self.enable_dialogue == False:
+                        self.enable_dialogue = True
+                    elif self.enable_dialogue == True:
+                        self.enable_dialogue = False
+                        self.current_text_number = 0
+
+                if event.key == pygame.K_RIGHT:
+                    if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1:
+                        self.current_text_number += 1
+                    else:
+                        self.enable_dialogue = False
+                        self.current_text_number = 0
+        return True
     
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
@@ -109,6 +148,8 @@ class Scene:
             self.filter2.apply(window)
         if self.display_text:
             self.show_text(window, self.text_to_display)
+        elif self.enable_dialogue:
+            self.show_dialogue(window)
         
 
     def show_text(self, window, text):
@@ -130,6 +171,90 @@ class Scene:
         # Render text
         text_rect.center = background_rect.center
         window.blit(text_surface, text_rect)
+
+    def show_dialogue(self, window):
+        if self.current_text_number < len(self.current_dialogue):
+            text = [self.current_dialogue[self.current_text_number]]
+        else:
+            text = []
+
+        margin_bottom = 32
+        box_height = WINDOW_HEIGHT // 3
+        border_size = 8
+        shadow_offset = 2
+        dark_brown = (79, 45, 0)
+        shadow_color = (10, 10, 10)  # Black for the shadow
+        arrow_color = self.text_color
+
+        # Calculate the y-coordinate of the top of the dialogue box
+        box_top = WINDOW_HEIGHT - box_height - margin_bottom
+
+        # Create a rectangle for the dialogue box
+        box_width = WINDOW_WIDTH - 192
+        box_rect = pygame.Rect(0, 0, box_width, box_height)
+        box_rect.center = (WINDOW_WIDTH // 2, box_top + box_height // 2)
+
+        # Create the dialogue box surface with shadow
+        box_surface = pygame.Surface((box_width, box_height))
+        box_surface.fill(self.background_color)
+        box_surface_shadow = pygame.Surface((box_width, box_height))
+        box_surface_shadow.fill(shadow_color)
+
+        # Draw the shadow
+        window.blit(box_surface_shadow, (box_rect.x + shadow_offset, box_rect.y + shadow_offset))
+        # Draw the border
+        pygame.draw.rect(window, dark_brown, (box_rect.x - border_size, box_rect.y - border_size, box_width + 2 * border_size, box_height + 2 * border_size))
+        # Draw the dialogue box
+        window.blit(box_surface, box_rect)
+
+        # Calculate the maximum width for text wrapping
+        max_text_width = box_width - 20  # Adding some padding
+
+        # Split text into lines that fit within the max_text_width
+        wrapped_lines = []
+        for sentence in text:
+            words = sentence.split(' ')
+            line = ""
+            for word in words:
+                test_line = line + word + " "
+                if self.font.size(test_line)[0] > max_text_width:
+                    wrapped_lines.append(line)
+                    line = word + " "
+                else:
+                    line = test_line
+            wrapped_lines.append(line)
+
+        # Calculate the height of each line of text
+        line_height = self.font.get_linesize()
+        total_text_height = line_height * len(wrapped_lines)
+
+        # Calculate the starting y-coordinate of the text
+        text_y = box_rect.top + (box_height - total_text_height) // 2
+
+        # Render and display each line of text with shadow
+        for line in wrapped_lines:
+            text_surface = self.font.render(line, True, self.text_color)
+            text_surface_shadow = self.font.render(line, True, shadow_color)
+
+            # Calculate the x-coordinate of the text
+            text_x = box_rect.left + (box_width - text_surface.get_width()) // 2
+
+            # Display the shadow and the text
+            window.blit(text_surface_shadow, (text_x + shadow_offset, text_y + shadow_offset))
+            window.blit(text_surface, (text_x, text_y))
+            text_y += line_height
+
+        arrow_size = 20  # Size of the arrow
+        arrow_x = box_rect.right - arrow_size - 10
+        arrow_y = box_rect.bottom - arrow_size - 10
+
+        arrow_points = [
+            (arrow_x, arrow_y),
+            (arrow_x + arrow_size, arrow_y + arrow_size // 2),
+            (arrow_x, arrow_y + arrow_size)
+        ]
+
+        pygame.draw.polygon(window, arrow_color, arrow_points)   
 
 class Map:
     def __init__(self, width, height):
