@@ -3,10 +3,76 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "map_destroyed.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Alle Dateien (*)",
     "fileStates": {
+        "Accessories/Interior.tsx": {
+            "scaleInDock": 1
+        },
+        "Accessories/fire_n_blood.tsx": {
+            "scaleInDock": 1
+        },
+        "Background/LPC_Ancient_Greece_Architecture.tsx": {
+            "scaleInDock": 1
+        },
+        "Background/LPC_Ancient_Greece_Architecture_Broken_v2 (2).tsx": {
+            "scaleInDock": 1
+        },
+        "Background/Outside Objects.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "Background/terrain_atlas.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Accessories/Interior.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Accessories/fire_n_blood.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Background/LPC_Ancient_Greece_Architecture.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Background/LPC_Ancient_Greece_Architecture_Broken_v2 (2).tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Background/Outside Objects.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Background/terrain_atlas.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Characters/BabyBundles.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Characters/Main_character.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/Characters/troy_horse.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/Downloads/map_destroyed.tmx": {
+            "scale": 0.12552918537524052,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": -2804.1287685232505,
+                "y": -3931.3566683699546
+            }
+        },
+        "Characters/BabyBundles.tsx": {
+            "scaleInDock": 1
+        },
+        "Characters/Main_character.tsx": {
+            "scaleInDock": 1
+        },
+        "Characters/troy_horse.tsx": {
+            "scaleInDock": 1
+        },
         "map1.tmx": {
             "scale": 0.4077083333333333,
             "selectedLayer": 0,
@@ -15,12 +81,20 @@
                 "y": 393.6637710781809
             }
         },
+        "map_destroyed.tmx": {
+            "scale": 0.26,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": -2738.461538461538,
+                "y": -2409.6153846153843
+            }
+        },
         "map_test.tmx": {
             "scale": 0.4077083333333333,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 473.37761880429235,
-                "y": 62.544711292795114
+                "x": 470.9248850281042,
+                "y": 60.09197751660707
             }
         },
         "troy_test_1.tsx": {
@@ -32,14 +106,20 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/tileset_the_legend_of_zelda_a_link_to_the_past",
+    "last.imagePath": "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game",
+    "map.height": 9,
     "map.lastUsedFormat": "tmx",
+    "map.width": 16,
     "openFiles": [
+        "C:/Users/bened/Downloads/map_destroyed.tmx",
+        "map_destroyed.tmx"
     ],
     "project": "maps.tiled-project",
     "property.type": "string",
     "recentFiles": [
         "map_test.tmx",
+        "C:/Users/bened/Downloads/map_destroyed.tmx",
+        "map_destroyed.tmx",
         "map1.tmx",
         "zelda_tileset.tsx",
         "troy_test_1.tsx"
