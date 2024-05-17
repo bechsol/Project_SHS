@@ -6,6 +6,7 @@ MAP_HEIGHT = 20
 TILE_SIZE = 64
 
 PACE = 5
+PACE_DANCE = 8
 
 WINDOW_WIDTH = TILE_SIZE*16
 WINDOW_HEIGHT = TILE_SIZE*9
@@ -13,36 +14,74 @@ WINDOW_HEIGHT = TILE_SIZE*9
 COLOR = (255, 100, 98) 
 SURFACE_COLOR = (167, 255, 100) 
 
+def dim(a):
+    if not type(a) == list:
+        return []
+    return [len(a)] + dim(a[0])
 
 
 #Groups
 class Game_Sprite ():
     all_sprites_list = pygame.sprite.Group() 
     me = pygame.sprite.RenderUpdates() 
+    pnj = pygame.sprite.RenderUpdates()
 
 class Sprite(pygame.sprite.Sprite): 
-    def __init__(self, group, images): 
+    def __init__(self, group): 
         super().__init__() 
-        self.images = images        # [front,back,left,right]
+#        self.images = images        # [front,back,left,right]
         self.index = 0              #for pace purposes
         self.animation = 0          #index of the animation image
-        self.image = self.images[0][0]
+        self.image = pygame.Surface((1,1))
+'''        if dim(images) == 1 :
+            self.image = self.images[0]
+        elif dim(images) == 2 :
+            self.image = self.images[0][0]
+        self.rect = self.image.get_rect()
+        self.add([Game_Sprite.all_sprites_list,group]) 
+        self.rect = self.image.get_rect() '''
+
+class Pnj(Sprite):
+    def __init__(self, group, x, y, images, x_size=32, y_size=52, mv_count=0):
+        super().__init__(group)
+        self.images = images
+        self.x = x
+        self.y = y 
+        self.x_size = x_size
+        self.y_size = y_size
+        self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.add([Game_Sprite.all_sprites_list,group]) 
         self.rect = self.image.get_rect() 
+        self.rect.x = x
+        self.rect.y = y
+
+    def dance(self) :
+        self.index += 1
+        if self.index == PACE_DANCE :
+            self.index = 0
+            self.animation += 1
+            if self.animation == 6 :
+                self.animation = 0
+        self.image = self.images[self.animation]
+
 
 class Perso(Sprite):
     def __init__(self, group, x, y, images, x_size=32, y_size=52, mv_count=0):
-        super().__init__(group, images)
+        super().__init__(group)
+        self.images = images
         self.x = x
         self.y = y 
-        self.rect.x = x
-        self.rect.y = y
         self.x_size = x_size
         self.y_size = y_size
         self.speed = 3
         self.sign_sensitivity = 2
-
+        self.image = self.images[0][0]
+        self.rect = self.image.get_rect()
+        self.add([Game_Sprite.all_sprites_list,group]) 
+        self.rect = self.image.get_rect() 
+        self.rect.x = x
+        self.rect.y = y
 
     def render(self, window):
         # Calculate the position and size of the rectangle
