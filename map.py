@@ -17,17 +17,44 @@ TILE_SIZE = 64
 
 SCALE_FACTOR = 2
 
+SPRITE_HEIGHT = 52
+SPRITE_WIDTH = 32
+
 perso_front = pygame.image.load("pixil-frame-0.png")
 perso_back = pygame.image.load("pixil-frame-1.png")
 perso_left = pygame.image.load("pixil-frame-0.png")
 perso_right = pygame.image.load("pixil-frame-1.png")
+
+main_char = pygame.image.load("main_char.png")
+
+main_wback = main_char.subsurface((0,512,832,64))
+main_back_array = [main_wback.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_back_array +=  [main_wback.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+main_wfront = main_char.subsurface((0,640,832,64))
+main_front_array = [main_wfront.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_front_array +=  [main_wfront.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+main_wleft = main_char.subsurface((0,576,832,64))
+main_left_array = [main_wleft.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_left_array +=  [main_wleft.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+main_wright = main_char.subsurface((0,704,832,64))
+main_right_array = [main_wright.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_right_array +=  [main_wright.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+#main_wback_1 = main_wback.subsurface((16,0,32,64))
+
 
 class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
         #self.player = Player(WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
-        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[perso_front,perso_back,perso_left,perso_right])
+        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_array,main_back_array,main_left_array,main_right_array])
 
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
