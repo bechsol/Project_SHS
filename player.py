@@ -5,6 +5,8 @@ MAP_HEIGHT = 20
 
 TILE_SIZE = 64
 
+PACE = 5
+
 WINDOW_WIDTH = TILE_SIZE*16
 WINDOW_HEIGHT = TILE_SIZE*9
 
@@ -21,15 +23,16 @@ class Game_Sprite ():
 class Sprite(pygame.sprite.Sprite): 
     def __init__(self, group, images): 
         super().__init__() 
-        self.images = images
-        self.index = 0
-        self.image = self.images[0]
+        self.images = images        # [front,back,left,right]
+        self.index = 0              #for pace purposes
+        self.animation = 0          #index of the animation image
+        self.image = self.images[0][0]
         self.rect = self.image.get_rect()
         self.add([Game_Sprite.all_sprites_list,group]) 
         self.rect = self.image.get_rect() 
 
 class Perso(Sprite):
-    def __init__(self, group, x, y, images, x_size=64, y_size=64, mv_count=0):
+    def __init__(self, group, x, y, images, x_size=32, y_size=52, mv_count=0):
         super().__init__(group, images)
         self.x = x
         self.y = y 
@@ -51,7 +54,6 @@ class Perso(Sprite):
         elif self.x > MAP_WIDTH*TILE_SIZE - WINDOW_WIDTH//2:
             self.rect.x = WINDOW_WIDTH + self.x - MAP_WIDTH*TILE_SIZE - rect_width//2
         else:
-    #        print(self.x_size.get_width())
             self.rect.x = (WINDOW_WIDTH - rect_width) // 2
         if self.y < WINDOW_HEIGHT//2:
             self.rect.y = self.y - rect_height//2
@@ -63,6 +65,12 @@ class Perso(Sprite):
         # Draw the rectangle on the screen
         #pygame.draw.rect(window, (255, 0, 0), (rect_x, rect_y, rect_width, rect_height))
 
+    def rot_sprite(self, angle, pos) :
+        '''rotate an image around the pos param'''
+        self.image = pygame.transform.rotate(self.image, angle)
+        self.rect = self.image.get_rect(center = pos)
+
+
     def move_up(self, map_tiles):
         for row in map_tiles:
             for tile in row:
@@ -70,8 +78,13 @@ class Perso(Sprite):
                     if (self.x - self.x_size//2 > tile.x*TILE_SIZE - self.x_size and self.x - self.x_size//2 < tile.x*TILE_SIZE + TILE_SIZE and self.y - self.y_size//2 - self.speed < tile.y*TILE_SIZE + TILE_SIZE and self.y - self.y_size//2 - self.speed > tile.y*TILE_SIZE):
                         self.y = tile.y*TILE_SIZE + TILE_SIZE + self.y_size//2
                         return
-        self.index = 1
-        self.image = self.images[self.index]
+        self.index += 1
+        if self.index == PACE :
+            self.index = 0
+            self.animation += 1
+            if self.animation == 7 :
+                self.animation = 0
+        self.image = self.images[1][self.animation]
         self.y -= self.speed
 
 
@@ -82,8 +95,13 @@ class Perso(Sprite):
                     if (self.x - self.x_size//2 > tile.x*TILE_SIZE - self.x_size and self.x - self.x_size//2 < tile.x*TILE_SIZE + TILE_SIZE and self.y + self.y_size//2 + self.speed < tile.y*TILE_SIZE + TILE_SIZE and self.y + self.y_size//2 + self.speed > tile.y*TILE_SIZE):
                         self.y = tile.y*TILE_SIZE - self.y_size//2
                         return
-        self.index = 0
-        self.image = self.images[self.index]                        
+        self.index += 1
+        if self.index == PACE :
+            self.index = 0
+            self.animation += 1
+            if self.animation == 7 :
+                self.animation = 0
+        self.image = self.images[0][self.animation]                     
         self.y += self.speed
 
 
@@ -95,8 +113,13 @@ class Perso(Sprite):
                     if (self.y - self.y_size//2 > tile.y*TILE_SIZE - self.y_size and self.y - self.y_size//2 < tile.y*TILE_SIZE + TILE_SIZE and self.x - self.x_size//2 - self.speed < tile.x*TILE_SIZE + TILE_SIZE and self.x - self.x_size//2 - self.speed > tile.x*TILE_SIZE):
                         self.x = tile.x*TILE_SIZE + TILE_SIZE + self.x_size//2
                         return
-        self.index = 2
-        self.image = self.images[self.index]  
+        self.index += 1
+        if self.index == PACE :
+            self.index = 0
+            self.animation += 1
+            if self.animation == 7 :
+                self.animation = 0
+        self.image = self.images[2][self.animation]
         self.x -= self.speed
 
 
@@ -107,8 +130,13 @@ class Perso(Sprite):
                     if (self.y - self.y_size//2 > tile.y*TILE_SIZE - self.y_size and self.y - self.y_size//2 < tile.y*TILE_SIZE + TILE_SIZE and self.x + self.x_size//2 + self.speed < tile.x*TILE_SIZE + TILE_SIZE and self.x + self.x_size//2 + self.speed > tile.x*TILE_SIZE):
                         self.x = tile.x*TILE_SIZE - self.x_size//2
                         return
-        self.index = 3
-        self.image = self.images[self.index]  
+        self.index += 1
+        if self.index == PACE :
+            self.index = 0
+            self.animation += 1
+            if self.animation == 7 :
+                self.animation = 0
+        self.image = self.images[3][self.animation]
         self.x += self.speed
  
 
