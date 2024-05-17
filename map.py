@@ -20,11 +20,6 @@ SCALE_FACTOR = 2
 SPRITE_HEIGHT = 52
 SPRITE_WIDTH = 32
 
-perso_front = pygame.image.load("pixil-frame-0.png")
-perso_back = pygame.image.load("pixil-frame-1.png")
-perso_left = pygame.image.load("pixil-frame-0.png")
-perso_right = pygame.image.load("pixil-frame-1.png")
-
 main_char = pygame.image.load("main_char.png")
 
 main_wback = main_char.subsurface((0,512,832,64))
