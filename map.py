@@ -25,23 +25,56 @@ main_char = pygame.image.load("main_char.png")
 main_wback = main_char.subsurface((0,512,832,64))
 main_back_array = [main_wback.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 for i in range(1,7) :
-    main_back_array +=  [main_wback.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+    main_back_array += [main_wback.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 main_wfront = main_char.subsurface((0,640,832,64))
 main_front_array = [main_wfront.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 for i in range(1,7) :
-    main_front_array +=  [main_wfront.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+    main_front_array += [main_wfront.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 main_wleft = main_char.subsurface((0,576,832,64))
 main_left_array = [main_wleft.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 for i in range(1,7) :
-    main_left_array +=  [main_wleft.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+    main_left_array += [main_wleft.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 main_wright = main_char.subsurface((0,704,832,64))
 main_right_array = [main_wright.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 for i in range(1,7) :
-    main_right_array +=  [main_wright.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
-#main_wback_1 = main_wback.subsurface((16,0,32,64))
+    main_right_array += [main_wright.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+baby = pygame.image.load("BabyBundles.png")
+baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,16)),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,16))]
+
+athena = pygame.image.load("athena.png")
+athena_vener = [athena.subsurface((16,651,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+androm = pygame.image.load("andromaque.png")
+androm_d = androm.subsurface((0,128,832,64))
+androm_dance = [androm_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,6) :
+    androm_dance += [androm_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+hecu = pygame.image.load("hecube.png")
+hecu_d = hecu.subsurface((0,128,832,64))
+hecu_dance = [hecu_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,6) :
+    hecu_dance += [hecu_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+cass = pygame.image.load("cassandre.png")
+cass_d = cass.subsurface((0,128,832,64))
+cass_dance = [cass_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,6) :
+    cass_dance += [cass_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+poly = pygame.image.load("polyxene.png")
+poly_d = poly.subsurface((0,128,832,64))
+poly_dance = [poly_d.subsurface((16,11,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,6) :
+    poly_dance += [poly_d.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+troy_horse = pygame.image.load("troy_horse.png")
+cheval = troy_horse.subsurface((576,0,256,384))
+
 
 
 class Scene:
