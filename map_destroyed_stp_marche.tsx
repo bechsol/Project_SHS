@@ -8978,7 +8978,7 @@
  </tile>
  <tile id="1795">
   <properties>
-   <property name="type" value="wall"/>
+   <property name="type" value="floor"/>
   </properties>
  </tile>
  <tile id="1796">
@@ -9328,7 +9328,7 @@
  </tile>
  <tile id="1865">
   <properties>
-   <property name="type" value="wall"/>
+   <property name="type" value="floor"/>
   </properties>
  </tile>
  <tile id="1866">
@@ -9678,7 +9678,7 @@
  </tile>
  <tile id="1935">
   <properties>
-   <property name="type" value="wall"/>
+   <property name="type" value="floor"/>
   </properties>
  </tile>
  <tile id="1936">
@@ -10028,7 +10028,7 @@
  </tile>
  <tile id="2005">
   <properties>
-   <property name="type" value="wall"/>
+   <property name="type" value="floor"/>
   </properties>
  </tile>
  <tile id="2006">
@@ -10378,7 +10378,7 @@
  </tile>
  <tile id="2075">
   <properties>
-   <property name="type" value="wall"/>
+   <property name="type" value="floor"/>
   </properties>
  </tile>
  <tile id="2076">
@@ -10728,7 +10728,7 @@
  </tile>
  <tile id="2145">
   <properties>
-   <property name="type" value="wall"/>
+   <property name="type" value="floor"/>
   </properties>
  </tile>
  <tile id="2146">
@@ -11078,7 +11078,7 @@
  </tile>
  <tile id="2215">
   <properties>
-   <property name="type" value="wall"/>
+   <property name="type" value="floor"/>
   </properties>
  </tile>
  <tile id="2216">

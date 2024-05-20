@@ -30,7 +30,7 @@ scene_1 = Scene("map_destroyed_stp_marche.tmx")
 # Game loop
 running = True
 while running:
-
+    scene_1 = scene_1.check_update_scene()
     # Update game logic
     running = scene_1.handle_input()
 #    running = scene_2.handle_input()

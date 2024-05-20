@@ -182,6 +182,14 @@ class Scene:
 
         self.option_select = OptionsSelectEnd()
 
+        self.update_scene = False
+
+    def check_update_scene(self):
+        new_scene = self
+        if self.update_scene == True:
+            new_scene = Scene("map_destroyed_stp_marche.tmx")
+        return new_scene
+
     
     def handle_input(self):
         self.filter1.update_animation()
