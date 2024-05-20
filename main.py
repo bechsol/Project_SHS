@@ -25,7 +25,7 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 
-scene_1 = Scene("map1.tmx")
+scene_1 = Scene("maps/")
 #scene_2 = Scene("map_destroyed.tmx")
 
 # Game loop

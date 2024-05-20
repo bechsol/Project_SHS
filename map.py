@@ -257,8 +257,8 @@ class Scene:
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-        self.cassandre.dance()
-        self.cassandre.update_pos()
+#        self.cassandre.dance()
+#        self.cassandre.update_pos()
         GS.me.update()
         GS.pnj.update()
         GS.pnj.draw(window)
