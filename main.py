@@ -25,7 +25,12 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 
+<<<<<<< HEAD
 scene_1 = Scene("maps/Projects/map_destroyed_stp_marche.tmx")
+=======
+scene_1 = Scene("map1.tmx")
+#scene_2 = Scene("map_destroyed.tmx")
+>>>>>>> 02f08daf5ca72dc896fd01c5607508bd3c258e8e
 
 # Game loop
 running = True
@@ -33,11 +38,11 @@ while running:
 
     # Update game logic
     running = scene_1.handle_input()
-    
+#    running = scene_2.handle_input()
 
     # Render graphics
     scene_1.render(window)
-
+#    scene_2.render(window)
     # Update the display
     pygame.display.update()
 
