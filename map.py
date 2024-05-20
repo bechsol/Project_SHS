@@ -212,9 +212,9 @@ class Scene:
             self.display_text = False
             self.filter1.disable()
 
-        if keys[pygame.K_c]:
+#        if keys[pygame.K_c]:
 #            self.player.pyj = not self.player.pyj
-            self.cassandre.move(64,64)
+#            self.cassandre.move(64,64)
 
 
         
