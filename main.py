@@ -25,7 +25,7 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 
-scene_1 = Scene("baby_minigame_1.tmx")
+scene_1 = Scene("maps/Projects/map.tmx")
 
 # Game loop
 running = True
