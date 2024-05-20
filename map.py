@@ -73,7 +73,8 @@ for i in range(1,7) :
 
 #PNJ
 baby = pygame.image.load("BabyBundles.png")
-baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,16)),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,16))]
+baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,32)),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,32)),pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),True,True)]
+#baby_turkish = [pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),False,True),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,32)),pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),True,False)]
 
 athena = pygame.image.load("athena.png")
 athena_vener = [athena.subsurface((16,651,SPRITE_WIDTH,SPRITE_HEIGHT))]
@@ -195,7 +196,7 @@ class Scene:
         self.lauch_baby = False
 
     def check_update_scene(self):
-        print(self.player.x, self.player.y)
+#        print(self.player.x, self.player.y)
         new_scene = self
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
             self.current_dialogue = self.dialogue_2
@@ -212,6 +213,7 @@ class Scene:
         elif self.current_dialogue == self.dialogue_3 and self.lauch_baby == True:
             """self.lauch_baby = False
             self.update_scene = True
+            self.player.kill()
             new_scene = BabyScene("actual_map_stp_marche.tmx")
             new_scene.player.x = 1880
             new_scene.player.y = 682"""
@@ -348,7 +350,7 @@ class Scene:
 
     def show_dialogue(self, window):
 #Baby crouch
-        if (self.current_text_number == 0 and  self.current_dialogue == self.dialogue_3) :
+        if (self.current_text_number == 0 and  self.current_dialogue == self.dialogue_3) or self.player.image == self.player.images[8][0] or self.player.image == self.player.images[8][1] or self.player.image == self.player.images[8][2]:
             self.player.anim_crouch()
 #Third head movement
         if (self.current_text_number == 0 and  self.current_dialogue == self.dialogue_2_2) :
@@ -529,7 +531,7 @@ class BabyScene(Scene):
     def __init__(self, map_filename):
         super().__init__(map_filename)
         self.player = Perso(GS.me, 1880, 682,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
-        self.baby = Pnj(GS.pnj,1830, 682, baby_turkish)
+        self.baby = Pnj(GS.pnj,470, 275, baby_turkish)
 
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
@@ -541,6 +543,11 @@ class BabyScene(Scene):
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
+
+        self.baby.rot()
+        self.baby.move(-100,275)
+        self.baby.update_pos()
+
         GS.me.update()
         GS.pnj.update()
         GS.pnj.draw(window)
