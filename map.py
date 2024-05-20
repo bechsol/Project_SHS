@@ -206,7 +206,7 @@ class Scene:
         elif self.current_dialogue == self.dialogue_3 and self.lauch_baby == True:
             self.lauch_baby = False
             self.update_scene = True
-            new_scene = Baby_Scene("actual_map_stp_marche.tmx")
+            new_scene = BabyScene("actual_map_stp_marche.tmx")
             new_scene.player.x = 1880
             new_scene.player.y = 682
         return new_scene
@@ -495,9 +495,7 @@ class BabyScene(Scene):
     def __init__(self, map_filename):
         super().__init__(map_filename)
         self.player = Perso(GS.me, 1880, 682,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
-        self.baby = Pnj(GS.pnj,1880,682,baby_turkish)
-        self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
-        self.filter1.enabled = False
+        self.baby = Pnj(GS.pnj,1830, 682, baby_turkish)
 
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
@@ -505,6 +503,7 @@ class BabyScene(Scene):
 
         # For displaying text on the screen
         self.font = pygame.font.Font("AUGUSTUS.ttf", 20)
+    
     
 
 class Map:
