@@ -7,8 +7,13 @@ from player import Game_Sprite as GS
 
 # Constants
 
+<<<<<<< HEAD
+MAP_WIDTH = 70
+MAP_HEIGHT = 50
+=======
 MAP_WIDTH = 30
 MAP_HEIGHT = 20
+>>>>>>> 02f08daf5ca72dc896fd01c5607508bd3c258e8e
 
 WINDOW_WIDTH = 64*16
 WINDOW_HEIGHT = 64*9
@@ -106,9 +111,14 @@ class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
+<<<<<<< HEAD
+        self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array])
+#        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
+=======
         self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
 #        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
         self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
+>>>>>>> 02f08daf5ca72dc896fd01c5607508bd3c258e8e
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
 
@@ -468,22 +478,32 @@ class Map:
     def load_tmx(self, filename):
 
         tmxdata = TiledMap(filename)
-        
 
+        tile_properties_cache = {}
+        image_path, _, _ = tmxdata.get_tile_image(0, 0, 0)
+        image = pygame.image.load(image_path)
 
         for x in range(tmxdata.width):  
             for y in range(tmxdata.height):
-                im = tmxdata.get_tile_image(x, y, 0)
                 gid = tmxdata.get_tile_gid(x, y, 0)
 
-                if im != None:
-                    if tmxdata.get_tile_properties_by_gid(gid)["type"] == "Sign":
-                        self.tiles[y][x] = Sign(x, y, im, "Hello I am a sign!")
-                        self.interactable_tiles.append(self.tiles[y][x])
-                    elif tmxdata.get_tile_properties_by_gid(gid)["type"] == "Wall":
-                        self.tiles[y][x] = Wall(x, y, im)
-                    else:
-                        self.tiles[y][x] = Floor(x, y, im)
+                if gid not in tile_properties_cache:
+                    tile_properties_cache[gid] = tmxdata.get_tile_properties_by_gid(gid)
+                
+
+                _, tile_sizes, _ = tmxdata.get_tile_image(x, y, 0)
+
+                properties = tile_properties_cache[gid]
+                im = (image, tile_sizes, "")
+
+                tile_type = properties["type"]
+                if tile_type == "Sign":
+                    self.tiles[y][x] = Sign(x, y, im, "Hello I am a sign!")
+                    self.interactable_tiles.append(self.tiles[y][x])
+                elif tile_type == "wall":
+                    self.tiles[y][x] = Wall(x, y, im)
+                else:
+                    self.tiles[y][x] = Floor(x, y, im)
         
 
     def render(self, window, offset=(0, 0)):
@@ -549,11 +569,9 @@ class Tile:
         self.walkable = walkable
         self.x = x 
         self.y = y
-        image_path, (image_x, image_y, image_width, image_height), _ = image_data
-        original_image = pygame.image.load(image_path)
-        cropped_image = self.crop_image(original_image, image_x, image_y, image_width, image_height)
-        scaled_image = pygame.transform.scale(cropped_image, (image_width * 2, image_height * 2))
-        self.image = scaled_image
+        image, (image_x, image_y, image_width, image_height), _ = image_data
+        cropped_image = self.crop_image(image, image_x, image_y, image_width, image_height)
+        self.image = pygame.transform.scale(cropped_image, (image_width * 2, image_height * 2))
     
     def crop_image(self, image, x, y, width, height):
         cropped_rect = pygame.Rect(x, y, width, height)

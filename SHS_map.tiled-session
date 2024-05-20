@@ -7,8 +7,8 @@
     "expandedProjectPaths": [
         "Characters",
         "Background",
-        "Accessories",
-        "."
+        ".",
+        "Accessories"
     ],
     "fileStates": {
         "Accessories/Interior.tsx": {
@@ -20,7 +20,8 @@
             "scaleInEditor": 2
         },
         "Accessories/signpost-outsidestuff.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 2,
+            "scaleInEditor": 1
         },
         "Accessories/signpost.tsx": {
             "dynamicWrapping": true,
@@ -36,23 +37,24 @@
             "scaleInEditor": 1.5
         },
         "Background/LPC_Ancient_Greece_Architecture_Broken_v2 (2).tsx": {
-            "scaleInDock": 0.33,
+            "scaleInDock": 0.75,
             "scaleInEditor": 1
         },
         "Background/Outside Objects.tsx": {
-            "scaleInDock": 0.5,
+            "scaleInDock": 0.33,
             "scaleInEditor": 1.5
         },
         "Background/map_destroyed.tsx": {
-            "scaleInDock": 0.25,
+            "scaleInDock": 0.5,
             "scaleInEditor": 0.25
         },
         "Background/start_map_destroyed.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         },
         "Background/terrain_atlas.tsx": {
-            "scaleInDock": 1.5,
+            "scaleInDock": 0.33,
             "scaleInEditor": 1.5
         },
         "Characters/BabyBundles.tsx": {
@@ -68,7 +70,7 @@
             "scaleInEditor": 1
         },
         "Characters/horse_only.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.5,
             "scaleInEditor": 1
         },
         "Characters/horse_open.tsx": {
@@ -85,28 +87,24 @@
         },
         "map.tmx": {
             "expandedGroupLayers": [
-                13,
-                54,
-                2
+                54
             ],
-            "scale": 0.1825,
-            "selectedLayer": 0,
+            "scale": 0.5,
+            "selectedLayer": 42,
             "viewCenter": {
-                "x": -2575.342465753424,
-                "y": -2545.2054794520545
+                "x": -2807,
+                "y": -2803
             }
         },
         "map_destroyed.tmx": {
             "expandedGroupLayers": [
-                68,
-                69,
-                58
+                69
             ],
-            "scale": 0.2173,
-            "selectedLayer": 45,
+            "scale": 0.25,
+            "selectedLayer": 63,
             "viewCenter": {
-                "x": -3686.1481822365395,
-                "y": -2478.1408191440405
+                "x": -3074,
+                "y": -2262
             }
         },
         "map_destructed.tmx": {
@@ -138,31 +136,29 @@
         "Background/terrain_atlas.tsx",
         "Background/Outside Objects.tsx",
         "Accessories/Interior.tsx",
-        "Characters/troy_horse.tsx",
         "Characters/BabyBundles.tsx",
         "Accessories/fire_n_blood.tsx",
         "Background/LPC_Ancient_Greece_Architecture_Broken_v2 (2).tsx",
         "map.tmx",
         "map_destroyed.tmx",
         "Background/map_destroyed.tsx",
-        "Characters/horse.tsx",
-        "Characters/horse.tsx",
-        "Accessories/spear.tsx"
+        "Background/start_map_destroyed.tsx",
+        "Accessories/signpost-outsidestuff.tsx"
     ],
     "project": "SHS_map.tiled-project",
     "recentFiles": [
-        "map.tmx",
         "Characters/Main_character.tsx",
-        "Accessories/spear.tsx",
-        "Characters/horse.tsx",
-        "Background/map_destroyed.tsx",
-        "map_destroyed.tmx",
-        "Accessories/fire_n_blood.tsx",
-        "Characters/BabyBundles.tsx",
-        "Characters/troy_horse.tsx",
-        "Accessories/Interior.tsx",
+        "Background/LPC_Ancient_Greece_Architecture.tsx",
+        "Background/terrain_atlas.tsx",
         "Background/Outside Objects.tsx",
-        "Background/terrain_atlas.tsx"
+        "Accessories/Interior.tsx",
+        "Characters/BabyBundles.tsx",
+        "Accessories/fire_n_blood.tsx",
+        "Background/LPC_Ancient_Greece_Architecture_Broken_v2 (2).tsx",
+        "map.tmx",
+        "Accessories/signpost-outsidestuff.tsx",
+        "Background/start_map_destroyed.tsx",
+        "Background/map_destroyed.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.transparentColor": "#c0c0c0",

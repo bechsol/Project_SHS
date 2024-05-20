@@ -1112,7 +1112,7 @@
    </data>
   </layer>
  </group>
- <group id="13" name="Start" offsetx="-269" offsety="-217">
+ <group id="13" name="Start" offsetx="-269.333" offsety="-217.333">
   <layer id="14" name="Tree" width="30" height="20">
    <data encoding="csv">
     <chunk x="-64" y="-64" width="16" height="16">
@@ -1136,7 +1136,7 @@
    </data>
   </layer>
  </group>
- <group id="5" name="Small_temple" offsetx="0" offsety="-130">
+ <group id="5" name="Small_temple" offsetx="-0.181818" offsety="-130.667">
   <group id="36" name="Destroyed">
    <layer id="37" name="wall" width="30" height="20">
     <data encoding="csv"/>
@@ -1187,7 +1187,7 @@
 </chunk>
     </data>
    </layer>
-   <layer id="8" name="pillar" width="30" height="20" offsetx="0" offsety="-7">
+   <layer id="8" name="pillar" width="30" height="20" offsetx="0" offsety="-7.33333">
     <data encoding="csv">
      <chunk x="-64" y="-64" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1255,7 +1255,7 @@
    </layer>
   </group>
  </group>
- <group id="32" name="Temple_houe" offsetx="173" offsety="-120">
+ <group id="32" name="Temple_houe" offsetx="173.212" offsety="-120.121">
   <layer id="33" name="roof" width="30" height="20">
    <data encoding="csv">
     <chunk x="-96" y="-96" width="16" height="16">
@@ -1301,7 +1301,7 @@
    </data>
   </layer>
  </group>
- <group id="12" name="Big_temple" offsetx="-257" offsety="-520">
+ <group id="12" name="Big_temple" offsetx="-257.455" offsety="-519.848">
   <layer id="20" name="ground" width="30" height="20" visible="0">
    <data encoding="csv">
     <chunk x="-80" y="-80" width="16" height="16">
@@ -1382,7 +1382,7 @@
 </chunk>
    </data>
   </layer>
-  <layer id="18" name="pillar" width="30" height="20" offsetx="-3" offsety="25">
+  <layer id="18" name="pillar" width="30" height="20" offsetx="-3.33333" offsety="24.8333">
    <data encoding="csv">
     <chunk x="-80" y="-80" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1539,7 +1539,7 @@
    </data>
   </layer>
  </group>
- <group id="24" name="Main_temple" visible="0" offsetx="33" offsety="-45">
+ <group id="24" name="Main_temple" visible="0" offsetx="33.3333" offsety="-45.4545">
   <layer id="28" name="wall" width="30" height="20">
    <data encoding="csv">
     <chunk x="-80" y="-96" width="16" height="16">
@@ -1616,7 +1616,7 @@
 </chunk>
    </data>
   </layer>
-  <layer id="27" name="pillar" width="30" height="20" offsetx="0" offsety="-8">
+  <layer id="27" name="pillar" width="30" height="20" offsetx="0" offsety="-8.33333">
    <data encoding="csv">
     <chunk x="-80" y="-96" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1809,7 +1809,7 @@
    </data>
   </layer>
  </group>
- <group id="29" name="House_v1" offsetx="-85" offsety="-136">
+ <group id="29" name="House_v1" offsetx="-84.8485" offsety="-136.364">
   <layer id="30" name="wall" width="30" height="20">
    <data encoding="csv">
     <chunk x="-96" y="-64" width="16" height="16">
@@ -1873,7 +1873,7 @@
    </data>
   </layer>
  </group>
- <group id="38" name="Stockage_house" offsetx="288" offsety="-382">
+ <group id="38" name="Stockage_house" offsetx="287.515" offsety="-381.576">
   <layer id="42" name="wall" width="30" height="20">
    <data encoding="csv">
     <chunk x="-80" y="-96" width="16" height="16">
