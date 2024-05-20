@@ -3,8 +3,8 @@ import pygame
 from map import Scene
 from player import Perso
 
-MAP_WIDTH = 30
-MAP_HEIGHT = 20
+MAP_WIDTH = 70
+MAP_HEIGHT = 50
 
 TILE_SIZE = 64
 
@@ -25,7 +25,7 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 
-scene_1 = Scene("maps/Projects/map.tmx")
+scene_1 = Scene("maps/Projects/map_destroyed_stp_marche.tmx")
 
 # Game loop
 running = True
