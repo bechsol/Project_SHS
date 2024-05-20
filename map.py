@@ -7,13 +7,8 @@ from player import Game_Sprite as GS
 
 # Constants
 
-<<<<<<< HEAD
 MAP_WIDTH = 70
 MAP_HEIGHT = 50
-=======
-MAP_WIDTH = 30
-MAP_HEIGHT = 20
->>>>>>> 02f08daf5ca72dc896fd01c5607508bd3c258e8e
 
 WINDOW_WIDTH = 64*16
 WINDOW_HEIGHT = 64*9
@@ -111,14 +106,8 @@ class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
-<<<<<<< HEAD
         self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array])
 #        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
-=======
-        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
-#        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
-        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
->>>>>>> 02f08daf5ca72dc896fd01c5607508bd3c258e8e
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
 
@@ -268,8 +257,8 @@ class Scene:
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-        self.cassandre.dance()
-        self.cassandre.update_pos()
+        #self.cassandre.dance()
+        #self.cassandre.update_pos()
         GS.me.update()
         GS.pnj.update()
         GS.pnj.draw(window)
