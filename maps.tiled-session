@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map_destroyed.tmx",
+    "activeFile": "map_test.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "Alle Dateien (*)",
     "fileStates": {
@@ -54,13 +55,14 @@
             "scaleInDock": 1
         },
         "C:/Users/bened/Downloads/Characters/troy_horse.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "C:/Users/bened/Downloads/map_destroyed.tmx": {
             "scale": 0.12552918537524052,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": -2804.1287685232505,
+                "x": -2812.095043433828,
                 "y": -3931.3566683699546
             }
         },
@@ -73,19 +75,27 @@
         "Characters/troy_horse.tsx": {
             "scaleInDock": 1
         },
+        "Tileset_Zelda_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tileset_troy_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "map1.tmx": {
             "scale": 0.4077083333333333,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 492.9994890137966,
-                "y": 393.6637710781809
+                "x": 490.54675523760864,
+                "y": 739.4992335206949
             }
         },
         "map_destroyed.tmx": {
             "scale": 0.26,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": -2738.461538461538,
+                "x": -2742.3076923076924,
                 "y": -2409.6153846153843
             }
         },
@@ -93,8 +103,8 @@
             "scale": 0.4077083333333333,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 470.9248850281042,
-                "y": 60.09197751660707
+                "x": 466.0194174757281,
+                "y": 57.639243740418976
             }
         },
         "troy_test_1.tsx": {
@@ -112,15 +122,19 @@
     "map.width": 16,
     "openFiles": [
         "C:/Users/bened/Downloads/map_destroyed.tmx",
-        "map_destroyed.tmx"
+        "map_destroyed.tmx",
+        "Tileset_troy_1.tsx",
+        "map_test.tmx"
     ],
     "project": "maps.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "map_test.tmx",
         "C:/Users/bened/Downloads/map_destroyed.tmx",
         "map_destroyed.tmx",
+        "Tileset_troy_1.tsx",
+        "map_test.tmx",
         "map1.tmx",
+        "Tileset_Zelda_2.tsx",
         "zelda_tileset.tsx",
         "troy_test_1.tsx"
     ],

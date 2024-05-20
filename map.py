@@ -7,8 +7,8 @@ from player import Game_Sprite as GS
 
 # Constants
 
-MAP_WIDTH = 30
-MAP_HEIGHT = 20
+MAP_WIDTH = 16
+MAP_HEIGHT = 9
 
 WINDOW_WIDTH = 64*16
 WINDOW_HEIGHT = 64*9
