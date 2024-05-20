@@ -7,8 +7,9 @@ TILE_SIZE = 64
 
 PACE = 5
 PACE_DANCE = 8
+PACE_ROT = 8
 
-PACE_PNJ = 2
+PACE_PNJ = 1
 
 WINDOW_WIDTH = TILE_SIZE*16
 WINDOW_HEIGHT = TILE_SIZE*9
@@ -103,6 +104,33 @@ class Pnj(Sprite):
             if self.animation == 6 :
                 self.animation = 0
         self.image = self.images[self.animation]
+
+    def rot(self) :
+        self.index += 1
+        if self.index == PACE_ROT :
+            self.index = 0
+            self.animation += 1
+            if self.animation == 4 :
+                self.animation = 0
+        self.image = self.images[self.animation]    
+
+    def render_baby(self, window):
+        # Calculate the position and size of the rectangle
+        rect_width = self.x_size
+        rect_height = self.y_size
+
+        if self.x < WINDOW_WIDTH//2:
+            self.rect.x = self.x - rect_width//2
+        elif self.x > MAP_WIDTH*TILE_SIZE - WINDOW_WIDTH//2:
+            self.rect.x = WINDOW_WIDTH + self.x - MAP_WIDTH*TILE_SIZE - rect_width//2
+        else:
+            self.rect.x = (WINDOW_WIDTH - rect_width) // 2
+        if self.y < WINDOW_HEIGHT//2:
+            self.rect.y = self.y - rect_height//2
+        elif self.y > MAP_HEIGHT*TILE_SIZE - WINDOW_HEIGHT//2:
+            self.rect.y = WINDOW_HEIGHT + self.y - MAP_HEIGHT*TILE_SIZE - rect_height//2
+        else:
+            self.rect.y = (WINDOW_HEIGHT - rect_height) // 2
 
 #    def rot_sprite(self, pos) :
 #       '''rotate an image around the pos param'''
