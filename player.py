@@ -156,6 +156,16 @@ class Perso(Sprite):
         # Draw the rectangle on the screen
         #pygame.draw.rect(window, (255, 0, 0), (rect_x, rect_y, rect_width, rect_height))
 
+    def anim_crouch(self) :
+        if self.animation == 5 :
+            return
+        self.index += 1
+        if self.index == PACE :
+            self.index = 0
+            self.animation += 1
+        if self.animation == 5 :
+            return
+        self.image = self.images[8][self.animation]
 
     def move_up(self, map_tiles):
         for row in map_tiles:
