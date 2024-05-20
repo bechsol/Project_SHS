@@ -1,6 +1,8 @@
 import pygame
 
 from map import Scene
+from map import TroyennesScene
+from map import BabyScene
 from player import Perso
 
 MAP_WIDTH = 70
@@ -24,8 +26,7 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 # Clock for controlling the frame rate
 clock = pygame.time.Clock()
 
-
-scene_1 = Scene("map_destroyed_stp_marche.tmx")
+scene_1 = Scene("map_final_final.tmx")
 
 # Game loop
 running = True
