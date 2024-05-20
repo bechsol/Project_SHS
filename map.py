@@ -106,7 +106,7 @@ class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
-        self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array])
+        self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
 #        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
@@ -298,9 +298,15 @@ class Scene:
     def show_dialogue(self, window):
         if self.current_text_number < len(self.current_dialogue):
             text = [self.current_dialogue[self.current_text_number]]
+
         else:
             text = []
-
+        if (self.current_text_number == 1 and  self.current_dialogue == self.dialogue_1) :
+            self.player.image = self.player.images[2][0]
+        if (self.current_text_number == 2 and  self.current_dialogue == self.dialogue_1) :
+            self.player.image = self.player.images[3][0]
+        if (self.current_text_number == 3 and  self.current_dialogue == self.dialogue_1) :
+            self.player.image = self.player.images[0][0]
         margin_bottom = 32
         box_height = WINDOW_HEIGHT // 3
         border_size = 8
