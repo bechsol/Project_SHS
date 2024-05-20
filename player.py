@@ -153,7 +153,7 @@ class Perso(Sprite):
         self.y = y 
         self.x_size = x_size
         self.y_size = y_size
-        self.speed = 3
+        self.speed = 10
         self.sign_sensitivity = 2
         self.image = self.images[0][0]
         self.rect = self.image.get_rect()

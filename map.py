@@ -165,11 +165,23 @@ class Scene:
         self.dialogue_6 = [
             "Forcément, les plus grandes tentes appartenaient à nos chefs. Et ils ont du se partager le butin... dont les femmes des troyens.",
             "Essayons de nous souvenir... où ont-elles été emmenées?",
-            "Polyxène-Achille: Un grand héros comme Achille se doit d'être accompagné dans la mort... mais quand même, quelle barbarie.",
-            "Cassandre-Agamemnon: La prêtresse d'Apollon a prononcé une prophetie avant d'être emmenée... un destin funeste à chacun pour le retour outre mer.",
-            "Andromaque-Neoptolème: Son bébé mort, son mari mort... Andromaque a été embarquée par Neoptolème... Je crois qu'il voulait l'épouser.",
-            "Hécube-Ulysse: Pauvre Hécube, après avoir perdu toute sa famille elle est partie à bord du navire d'Ulysse.",
             "Tiens, les cendres ont l'air encore chaudes. Peut-être que je me suis évanoui moins longtemps que je pensais... Mais peut-être qu'ils viennent de partir tous. Il faut que je fonce à la plage, les bateaux sont peut-être encore là."
+        ]
+        self.dialogue_6_1 = [
+            "C'est correct!",
+            "Polyxène-Achille: Un grand héros comme Achille se doit d'être accompagné dans la mort... mais quand même, quelle barbarie."
+        ]
+        self.dialogue_6_2 = [
+            "C'est correct!",
+            "Andromaque-Neoptolème: Son bébé mort, son mari mort... Andromaque a été embarquée par Neoptolème... Je crois qu'il voulait l'épouser."
+        ]
+        self.dialogue_6_3 = [
+            "C'est correct!",
+            "Hécube-Ulysse: Pauvre Hécube, après avoir perdu toute sa famille elle est partie à bord du navire d'Ulysse."
+        ]
+        self.dialogue_6_4 = [
+            "C'est correct!",
+            "Cassandre-Agamemnon: La prêtresse d'Apollon a prononcé une prophetie avant d'être emmenée... un destin funeste à chacun pour le retour outre mer."
         ]
         self.dialogue_7_1 = [
             "Bon je commence à y voir plus clair... Mais ?!? C'est le bateau des Danéens au loin ? Vite, une longue vue...",
@@ -190,13 +202,15 @@ class Scene:
 
 
         self.option_select = OptionsSelectTroyennes("Qui faut-il donner à Achille ?")
+        self.troyennes_minigame = False
+        self.minigame_progress = 0
 
         self.update_scene = False
 
         self.lauch_baby = False
 
     def check_update_scene(self):
-#        print(self.player.x, self.player.y)
+        #print(self.player.x, self.player.y)
         new_scene = self
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
             self.current_dialogue = self.dialogue_2
@@ -222,6 +236,17 @@ class Scene:
             self.enable_dialogue = True
         elif self.current_dialogue == self.dialogue_4 and self.player.x < 1712 and self.player.y > 2062:
             self.current_dialogue = self.dialogue_5
+            self.current_text_number = 0
+            self.enable_dialogue = True
+            self.troyennes_minigame = True
+        elif self.minigame_progress >= 4 and self.player.y < 2062:
+            self.troyennes_minigame = False
+            self.option_select.enabled = False
+            self.current_dialogue = self.dialogue_7_1
+            self.current_text_number = 0
+            self.enable_dialogue = True
+        elif self.current_dialogue == self.dialogue_7_1 and self.player.y < 300:
+            self.current_dialogue = self.dialogue_7_2
             self.current_text_number = 0
             self.enable_dialogue = True
         return new_scene
@@ -265,17 +290,46 @@ class Scene:
             if event.type == pygame.QUIT:
                 return False
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_KP_ENTER:
-                    if self.option_select.enabled and self.option_select.current_option == 0:
-                        if self.player.x < 400 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
-                            self.option_select.enabled = False
-                            self.current_dialogue = self.dialogue_7_1
-                            self.current_text_number = 0
-                            self.enable_dialogue = True
-
                 if event.key == pygame.K_SPACE:
-                    if self.current_dialogue == self.dialogue_6 and self.player.x < 400 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
+                    print(self.minigame_progress)
+                    if self.option_select.enabled:
+                        if self.option_select.current_option == 0:
+                            if self.player.x < 450 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
+                                self.option_select.enabled = False
+                                self.current_dialogue = self.dialogue_6_1
+                                self.minigame_progress += 1
+                                self.current_text_number = 0
+                                self.enable_dialogue = True
+                        elif self.option_select.current_option == 1:
+                            if self.player.x < 450 and self.player.x > 300 and self.player.y < 3150 and self.player.y > 2950:
+                                self.option_select.enabled = False
+                                self.current_dialogue = self.dialogue_6_2
+                                self.minigame_progress += 1
+                                self.current_text_number = 0
+                                self.enable_dialogue = True
+                        elif self.option_select.current_option == 2:
+                            if self.player.x < 1500 and self.player.x > 1300 and self.player.y < 2500 and self.player.y > 2400:
+                                self.option_select.enabled = False
+                                self.current_dialogue = self.dialogue_6_3
+                                self.minigame_progress += 1
+                                self.current_text_number = 0
+                                self.enable_dialogue = True
+                        elif self.option_select.current_option == 3:
+                            if self.player.x < 1500 and self.player.x > 1300 and self.player.y < 3150 and self.player.y > 2950:
+                                self.option_select.enabled = False
+                                self.current_dialogue = self.dialogue_6_4
+                                self.minigame_progress += 1
+                                self.current_text_number = 0
+                                self.enable_dialogue = True 
+                    elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 450 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
                         self.option_select.enabled = True
+                    elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 450 and self.player.x > 300 and self.player.y < 3150 and self.player.y > 2950:
+                        self.option_select.enabled = True
+                    elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 1500 and self.player.x > 1300 and self.player.y < 2500 and self.player.y > 2400:
+                        self.option_select.enabled = True
+                    elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 1500 and self.player.x > 1300 and self.player.y < 3150 and self.player.y > 2950:
+                        self.option_select.enabled = True
+                    
 
 
                 
