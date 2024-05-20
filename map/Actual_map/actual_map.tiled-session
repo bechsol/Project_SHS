@@ -1,0 +1,114 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Accessories/Interior.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Accessories/fire_n_blood.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Accessories/signpost-outsidestuff.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Accessories/spear.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Background/LPC_Ancient_Greece_Architecture.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Background/LPC_Ancient_Greece_Architecture_Broken_v2 (2).tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Background/Outside Objects.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Background/map_destroyed.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Background/start_map_destroyed.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Background/terrain_atlas.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Characters/BabyBundles.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Characters/Main_character.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Characters/horse_only.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Characters/troy_horse.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Map_destroyed.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.2987
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/actual_map_stp_marche.tmx": {
+            "scale": 0.1554,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2538.610038610039,
+                "y": 363.5778635778638
+            }
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map.tmx": {
+            "scale": 0.1944,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 2425.4115226337453,
+                "y": 23.14814814814804
+            }
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map_destroyed.tmx": {
+            "scale": 0.1881,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": -3543.328017012228,
+                "y": -3490.16480595428
+            }
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map_destroyed_stp_marche.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.2388
+        },
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map_does_this_work_please.tsx": {
+            "scaleInDock": 0.1714,
+            "scaleInEditor": 0.3162
+        },
+        "actual_map.tsx": {
+            "scaleInDock": 0.0586,
+            "scaleInEditor": 0.2237
+        }
+    },
+    "last.externalTilesetPath": "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects",
+    "last.imagePath": "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 70,
+    "openFiles": [
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map.tmx"
+    ],
+    "project": "actual_map.tiled-project",
+    "recentFiles": [
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map.tmx",
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map_destroyed.tmx",
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map_destroyed_stp_marche.tsx",
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/Map_destroyed.tsx",
+        "actual_map.tsx",
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/actual_map_stp_marche.tmx",
+        "C:/Users/bened/OneDrive/Dokumente/Studium/MA2/SHS/Game/maps/Projects/map_does_this_work_please.tsx"
+    ],
+    "tileset.lastUsedFilter": "Tiled-Kachelsatzdateien (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx"
+}
