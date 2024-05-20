@@ -114,7 +114,7 @@ class Scene:
         self.map.load_tmx(map_filename)
         self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array,
                                                 main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj,main_acc_array])
-#        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
+        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
 
@@ -295,7 +295,7 @@ class Scene:
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-        #self.cassandre.dance()
+        self.cassandre.dance()
         #self.cassandre.update_pos()
         GS.me.update()
         GS.pnj.update()
@@ -517,6 +517,8 @@ class BabyScene(Scene):
         super().__init__(map_filename)
         self.player = Perso(GS.me, 1880, 682,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
         self.baby = Pnj(GS.pnj,470, 275, baby_turkish)
+        self.lunch_bb_scene = False
+        self.count = 0
 
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
@@ -537,6 +539,16 @@ class BabyScene(Scene):
         GS.pnj.update()
         GS.pnj.draw(window)
         GS.me.draw(window)
+
+    def count_click (self) :
+        keys = pygame.key.get_pressed()
+        if event.key == pygame.KEYUP:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and self.lunch_bb_scene == False:
+                    start_time = pygame.time.get_ticks()
+                    self.lunch_bb_scene = True
+                if event.type == pygame.KEYDOWN and event.key == K_SPACE :
+                    self.count += 1
     
     
 
