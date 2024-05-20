@@ -522,6 +522,14 @@ class BabyScene(Scene):
 
         # For displaying text on the screen
         self.font = pygame.font.Font("AUGUSTUS.ttf", 20)
+
+    def render(self, window):
+        self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
+        self.player.render(window)
+        GS.me.update()
+        GS.pnj.update()
+        GS.pnj.draw(window)
+        GS.me.draw(window)
     
     
 
