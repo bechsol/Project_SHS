@@ -1,6 +1,8 @@
 import pygame
 
-from map import Scene, BabyScene
+from map import Scene
+from map import TroyennesScene
+from map import BabyScene
 from player import Perso
 
 MAP_WIDTH = 70
@@ -27,6 +29,7 @@ clock = pygame.time.Clock()
 
 # scene_1 = BabyScene("actual_map_stp_marche.tmx")
 scene_1 = Scene("map_destroyed_stp_marche.tmx")
+#scene_1 = Scene("map_final_final.tmx")
 
 # Game loop
 running = True

@@ -189,7 +189,7 @@ class Scene:
         self.current_text_number = 0
 
 
-        self.option_select = OptionsSelectEnd()
+        self.option_select = OptionsSelectTroyennes("Qui faut-il donner à Achille ?")
 
         self.update_scene = False
 
@@ -211,12 +211,19 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
         elif self.current_dialogue == self.dialogue_3 and self.lauch_baby == True:
-            self.lauch_baby = False
+            """self.lauch_baby = False
             self.update_scene = True
             self.player.kill()
             new_scene = BabyScene("actual_map_stp_marche.tmx")
             new_scene.player.x = 1880
-            new_scene.player.y = 682
+            new_scene.player.y = 682"""
+            self.current_dialogue = self.dialogue_4
+            self.current_text_number = 0
+            self.enable_dialogue = True
+        elif self.current_dialogue == self.dialogue_4 and self.player.x < 1712 and self.player.y > 2062:
+            self.current_dialogue = self.dialogue_5
+            self.current_text_number = 0
+            self.enable_dialogue = True
         return new_scene
 
     
@@ -252,17 +259,25 @@ class Scene:
 #            self.player.pyj = not self.player.pyj
 #            self.cassandre.move(64,64)
 
-
+        self.positions = [(325, 2458), (329, 3034), (1416, 2458), (1414, 3034)]
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_KP_ENTER:
-                    if self.filter2.enabled and not self.filter2.is_animating():
-                        self.filter2.disable()
-                    elif not self.filter2.enabled and not self.filter2.is_animating():   
-                        self.filter2.enable()
+                    if self.option_select.enabled and self.option_select.current_option == 0:
+                        if self.player.x < 400 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
+                            self.option_select.enabled = False
+                            self.current_dialogue = self.dialogue_7_1
+                            self.current_text_number = 0
+                            self.enable_dialogue = True
+
+                if event.key == pygame.K_SPACE:
+                    if self.current_dialogue == self.dialogue_6 and self.player.x < 400 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
+                        self.option_select.enabled = True
+
+
                 
                 if event.key == pygame.K_k:
                     if self.enable_dialogue == False:
@@ -282,14 +297,14 @@ class Scene:
                     if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1:
                         self.current_text_number += 1
                     elif self.option_select.enabled:
-                        self.option_select.current_option = (self.option_select.current_option + 1) % 2
+                        self.option_select.current_option = (self.option_select.current_option + 1) % 4
                     else:
                         if self.current_dialogue == self.dialogue_3:
                             self.lauch_baby = True
                         self.enable_dialogue = False
                 if event.key == pygame.K_LEFT:
                     if self.option_select.enabled:
-                        self.option_select.current_option = (self.option_select.current_option - 1) % 2
+                        self.option_select.current_option = (self.option_select.current_option - 1) % 4
         return True
     
     def render(self, window):
@@ -549,6 +564,132 @@ class BabyScene(Scene):
                     self.lunch_bb_scene = True
                 if event.type == pygame.KEYDOWN and event.key == K_SPACE :
                     self.count += 1
+
+class TroyennesScene(Scene):
+    def __init__(self, map_filename):
+        super().__init__(map_filename)
+        self.positions = [(325, 2458), (329, 3034), (1416, 2458), (1414, 3034)]
+        self.player = Perso(GS.me, self.positions[0][0], self.positions[0][1], [main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
+
+        self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
+        self.filter2.enabled = True
+        self.filter2.disable()
+
+        self.option_select = OptionsSelectTroyennes("Qui faut-il donner à Achille ?")
+        
+
+        # For displaying text on the screen
+        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)
+
+    def check_update_scene(self):
+        print(self.player.x, self.player.y)
+        new_scene = self
+        return new_scene
+    
+    """def handle_input(self):
+        for event in pygame.event.get():
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1:
+                        self.current_text_number += 1
+                    elif self.option_select.enabled:
+                        self.option_select.current_option = (self.option_select.current_option + 1) % 2
+                    else:
+                        if self.current_dialogue == self.dialogue_3:
+                            self.lauch_baby = True
+                        self.enable_dialogue = False
+                if event.key == pygame.K_LEFT:
+                    if self.option_select.enabled:
+                        self.option_select.current_option = (self.option_select.current_option - 1) % 2"""
+
+    def render(self, window):
+        self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
+        self.player.render(window)
+        GS.me.update()
+        GS.me.draw(window)
+        self.option_select.render(window)
+
+
+class OptionsSelectTroyennes:
+    def __init__(self, text):
+        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)  # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
+        self.text_color = (255, 255, 255)  # White text color
+        self.background_color = (139, 69, 19)  # Brown background color
+        self.dark_brown = (79, 45, 0)
+        self.enabled = False
+        self.text_to_display = text
+        self.options = ["Polyxène", "Andromaque", "Cassandre", "Hécube"]
+        self.current_option = 0
+        self.option_size_y = 70
+        self.option_size_x = 210
+
+    def render(self, window):
+        margin_bottom = 32
+        box_height = WINDOW_HEIGHT // 3
+        border_size = 8
+        shadow_offset = 2
+        shadow_color = (0, 0, 0)  # Black for the shadow
+        margin_between_box = 30
+
+        # Calculate the y-coordinate of the top of the dialogue box
+        box_top = WINDOW_HEIGHT - box_height - margin_bottom
+
+        # Create a rectangle for the dialogue box
+        box_width = WINDOW_WIDTH - 32
+        box_rect = pygame.Rect(0, 0, box_width, box_height)
+        box_rect.center = (WINDOW_WIDTH // 2, box_top + box_height // 2)
+
+        # Create the dialogue box surface with shadow
+        box_surface = pygame.Surface((box_width, box_height))
+        box_surface.fill(self.background_color)
+        box_surface_shadow = pygame.Surface((box_width, box_height))
+        box_surface_shadow.fill(shadow_color)
+
+        # Draw the shadow
+        window.blit(box_surface_shadow, (box_rect.x + shadow_offset, box_rect.y + shadow_offset))
+        # Draw the border
+        pygame.draw.rect(window, self.dark_brown, (box_rect.x - border_size, box_rect.y - border_size, box_width + 2 * border_size, box_height + 2 * border_size))
+        # Draw the dialogue box
+        window.blit(box_surface, box_rect)
+
+        # Render and display the text
+        text_surface = self.font.render(self.text_to_display, True, self.text_color)
+        text_surface_shadow = self.font.render(self.text_to_display, True, shadow_color)
+        
+        # Calculate the text position
+        text_x = box_rect.left + (box_width - text_surface.get_width()) // 2
+        text_y = box_rect.top + 20  # Padding from the top
+
+        # Display the shadow and the text
+        window.blit(text_surface_shadow, (text_x + shadow_offset, text_y + shadow_offset))
+        window.blit(text_surface, (text_x, text_y))
+
+        # Calculate the position of the options
+        options_y = text_y + text_surface.get_height() + 40  # Padding below the text
+        options_x_start = box_rect.left + (box_width - (4 * self.option_size_x + 3 * margin_between_box)) // 2  # Centering options horizontally with padding
+
+        # Render the options and draw them
+        for i, option in enumerate(self.options):
+            option_surface = self.font.render(option, True, self.text_color)
+            option_surface_shadow = self.font.render(option, True, shadow_color)
+
+            option_x = options_x_start + i * (self.option_size_x + margin_between_box)  # Spacing options evenly
+            option_y = options_y
+
+            # Draw the square for the option
+            pygame.draw.rect(window, self.background_color, (option_x - 5, option_y - 5, self.option_size_x, self.option_size_y))
+            # Highlight the current selected option
+            if self.current_option == i:
+                pygame.draw.rect(window, (255, 255, 255), (option_x - 5, option_y - 5, self.option_size_x, self.option_size_y), 4)
+
+            # Calculate the position to center the text within the option box
+            text_x_centered = option_x + (self.option_size_x - option_surface.get_width()) // 2
+            text_y_centered = option_y + (self.option_size_y - option_surface.get_height()) // 2
+
+            # Draw the option shadow
+            window.blit(option_surface_shadow, (text_x_centered + shadow_offset, text_y_centered + shadow_offset))
+            # Draw the option
+            window.blit(option_surface, (text_x_centered, text_y_centered))
     
     
 
