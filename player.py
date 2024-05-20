@@ -36,13 +36,6 @@ class Sprite(pygame.sprite.Sprite):
         self.index = 0              #for pace purposes
         self.animation = 0          #index of the animation image
         self.image = pygame.Surface((1,1))
-        '''        if dim(images) == 1 :
-                    self.image = self.images[0]
-                elif dim(images) == 2 :
-                    self.image = self.images[0][0]
-                self.rect = self.image.get_rect()
-                self.add([Game_Sprite.all_sprites_list,group]) 
-                self.rect = self.image.get_rect() '''
 
 
 class Pnj(Sprite):
@@ -53,9 +46,6 @@ class Pnj(Sprite):
         self.y = y 
         self.x_size = x_size
         self.y_size = y_size
-#        self.angle = 10
-#        self.index_angle = 0
-#        self.rot = 1
         self.pace_count = 0
         self.dest =[x,y]
         self.image = self.images[0]
@@ -132,18 +122,6 @@ class Pnj(Sprite):
         else:
             self.rect.y = (WINDOW_HEIGHT - rect_height) // 2
 
-#    def rot_sprite(self, pos) :
-#       '''rotate an image around the pos param'''
-#        self.index_angle += 1
-#         if self.index_angle == 20 :
-#            self.index_angle = 0
-#            self.angle += self.rot
-#            if self.angle >= 180 :
-#                self.rot = -10
-#            elif self.angle <= 0 :
-#                self.rot = 10
-#            self.image = pygame.transform.rotate(self.image, self.angle)
-#            self.rect = self.image.get_rect(center = pos)
 
 class Perso(Sprite):
     def __init__(self, group, x, y, images, x_size=32, y_size=52, mv_count=0):

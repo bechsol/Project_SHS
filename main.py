@@ -27,9 +27,11 @@ window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 clock = pygame.time.Clock()
 
 
-# scene_1 = BabyScene("actual_map_stp_marche.tmx")
-scene_1 = Scene("map_destroyed_stp_marche.tmx")
+#scene_1 = BabyScene("actual_map_stp_marche.tmx")
+#scene_1 = Scene("map_destroyed_stp_marche.tmx")
+scene_1 = TroyennesScene("actual_map_stp_marche.tmx")
 #scene_1 = Scene("map_final_final.tmx")
+
 
 # Game loop
 running = True
