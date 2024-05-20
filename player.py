@@ -8,6 +8,8 @@ TILE_SIZE = 64
 PACE = 5
 PACE_DANCE = 8
 
+PACE_PNJ = 2
+
 WINDOW_WIDTH = TILE_SIZE*16
 WINDOW_HEIGHT = TILE_SIZE*9
 
@@ -50,15 +52,48 @@ class Pnj(Sprite):
         self.y = y 
         self.x_size = x_size
         self.y_size = y_size
-        self.angle = 10
-        self.index_angle = 0
-        self.rot = 1
+#        self.angle = 10
+#        self.index_angle = 0
+#        self.rot = 1
+        self.pace_count = 0
+        self.dest =[x,y]
         self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.add([Game_Sprite.all_sprites_list,group]) 
         self.rect = self.image.get_rect() 
         self.rect.x = x
         self.rect.y = y
+
+    def update_pos(self) :
+        '''
+        Change the position of the sprite based on the position specified to the move() function
+        Return : (Bool) False if the sprite is already at destination
+        '''
+        x_move = 1
+        y_move = 1
+        if self.dest[0] < self.x :
+            x_move = -1
+        if self.dest[1] < self.y :
+            y_move = -1
+        if (self.dest[0] == self.x) and (self.dest[1] == self.y) :
+            return False
+        elif (self.dest[1] != self.y) :
+            self.pace_count += 1
+            if self.pace_count == PACE_PNJ :
+                print(self.y)
+                self.pace_count = 0
+                self.y += y_move
+        elif (self.dest[0] != self.x) :
+            self.pace_count += 1
+            if self.pace_count == PACE_PNJ :
+                self.pace_count = 0
+                self.x += x_move
+        self.rect.x = self.x - self.x_size//2
+        self.rect.y = self.y - self.y_size//2
+        return True
+
+    def move(self,x,y) :
+        self.dest = [x,y]
 
     def dance(self) :
         self.index += 1
@@ -69,18 +104,18 @@ class Pnj(Sprite):
                 self.animation = 0
         self.image = self.images[self.animation]
 
-    def rot_sprite(self, pos) :
-        '''rotate an image around the pos param'''
-        self.index_angle += 1
-        if self.index_angle == 20 :
-            self.index_angle = 0
-            self.angle += self.rot
-            if self.angle >= 180 :
-                self.rot = -10
-            elif self.angle <= 0 :
-                self.rot = 10
-            self.image = pygame.transform.rotate(self.image, self.angle)
-            self.rect = self.image.get_rect(center = pos)
+#    def rot_sprite(self, pos) :
+#       '''rotate an image around the pos param'''
+#        self.index_angle += 1
+#         if self.index_angle == 20 :
+#            self.index_angle = 0
+#            self.angle += self.rot
+#            if self.angle >= 180 :
+#                self.rot = -10
+#            elif self.angle <= 0 :
+#                self.rot = 10
+#            self.image = pygame.transform.rotate(self.image, self.angle)
+#            self.rect = self.image.get_rect(center = pos)
 
 class Perso(Sprite):
     def __init__(self, group, x, y, images, x_size=32, y_size=52, mv_count=0):
@@ -98,6 +133,7 @@ class Perso(Sprite):
         self.rect = self.image.get_rect() 
         self.rect.x = x
         self.rect.y = y
+        self.pyj = False
 
     def render(self, window):
         # Calculate the position and size of the rectangle
@@ -134,7 +170,10 @@ class Perso(Sprite):
             self.animation += 1
             if self.animation == 7 :
                 self.animation = 0
-        self.image = self.images[1][self.animation]
+        if self.pyj == False :
+            self.image = self.images[1][self.animation]
+        else :
+            self.image = self.images[5][self.animation]
         self.y -= self.speed
 
 
@@ -151,7 +190,10 @@ class Perso(Sprite):
             self.animation += 1
             if self.animation == 7 :
                 self.animation = 0
-        self.image = self.images[0][self.animation]                     
+        if self.pyj == False :
+            self.image = self.images[0][self.animation]
+        else :
+            self.image = self.images[4][self.animation]                    
         self.y += self.speed
 
 
@@ -169,7 +211,10 @@ class Perso(Sprite):
             self.animation += 1
             if self.animation == 7 :
                 self.animation = 0
-        self.image = self.images[2][self.animation]
+        if self.pyj == False :
+            self.image = self.images[2][self.animation]
+        else :
+            self.image = self.images[6][self.animation]
         self.x -= self.speed
 
 
@@ -186,7 +231,10 @@ class Perso(Sprite):
             self.animation += 1
             if self.animation == 7 :
                 self.animation = 0
-        self.image = self.images[3][self.animation]
+        if self.pyj == False :
+            self.image = self.images[3][self.animation]
+        else :
+            self.image = self.images[7][self.animation]
         self.x += self.speed
  
 
