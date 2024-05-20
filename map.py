@@ -7,8 +7,8 @@ from player import Game_Sprite as GS
 
 # Constants
 
-MAP_WIDTH = 16
-MAP_HEIGHT = 9
+MAP_WIDTH = 30
+MAP_HEIGHT = 20
 
 WINDOW_WIDTH = 64*16
 WINDOW_HEIGHT = 64*9
@@ -20,6 +20,7 @@ SCALE_FACTOR = 2
 SPRITE_HEIGHT = 52
 SPRITE_WIDTH = 32
 
+#MAIN DESIGN
 main_char = pygame.image.load("main_char.png")
 
 main_wback = main_char.subsurface((0,512,832,64))
@@ -42,6 +43,30 @@ main_right_array = [main_wright.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPR
 for i in range(1,7) :
     main_right_array += [main_wright.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
+#PYJAMA
+main_char_pyj = pygame.image.load("main_character_pyjama.png")
+
+main_wb_pyj = main_char_pyj.subsurface((0,512,832,64))
+main_back_pyj = [main_wb_pyj.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_back_pyj += [main_wb_pyj.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+main_wf_pyj = main_char_pyj.subsurface((0,640,832,64))
+main_front_pyj = [main_wf_pyj.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_front_pyj += [main_wf_pyj.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+main_wl_pyj = main_char_pyj.subsurface((0,576,832,64))
+main_left_pyj = [main_wl_pyj.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_left_pyj += [main_wl_pyj.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+main_wr_pyj = main_char_pyj.subsurface((0,704,832,64))
+main_right_pyj = [main_wr_pyj.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    main_right_pyj += [main_wr_pyj.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+
+#PNJ
 baby = pygame.image.load("BabyBundles.png")
 baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,16)),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,16))]
 
@@ -81,8 +106,9 @@ class Scene:
     def __init__(self, map_filename):
         self.map = Map(MAP_WIDTH, MAP_HEIGHT)
         self.map.load_tmx(map_filename)
-        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_array,main_back_array,main_left_array,main_right_array])
-#        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
+        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
+#        self.player = Perso(GS.me,WINDOW_WIDTH//2, WINDOW_HEIGHT//2,[main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
+        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
 
@@ -186,6 +212,11 @@ class Scene:
             self.display_text = False
             self.filter1.disable()
 
+        if keys[pygame.K_c]:
+#            self.player.pyj = not self.player.pyj
+            self.cassandre.move(64,64)
+
+
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -227,7 +258,8 @@ class Scene:
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-#        self.cassandre.dance()
+        self.cassandre.dance()
+        self.cassandre.update_pos()
         GS.me.update()
         GS.pnj.update()
         GS.pnj.draw(window)
