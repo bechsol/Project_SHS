@@ -138,7 +138,9 @@ class Scene:
         ]
         self.dialogue_2 = [
             "Oh un cheval en bois... Mais oui c'est ça le cheval de bois ! Quelle ruse malicieuse ! Il me semble que l'idée venait d'Ulysse et que Epeos a dirigé la construction. Mais... Mais... ",
-            "Je suis sûr de louper quelque chose...",
+            "Je suis sûr de louper quelque chose..."
+        ]
+        self.dialogue_2_2 = [
             "... des lances cachées en son sein...",
             "Une ruse malicieuse... Ou bien une trahison écoeurante! Transformer une offrande en arme, quelle immondice.",
             "Tout est si flou, je ne sais plus quoi croire... Il faudrait que je continue de chercher."
@@ -190,10 +192,29 @@ class Scene:
 
         self.update_scene = False
 
+        self.lauch_baby = False
+
     def check_update_scene(self):
+        print(self.player.x, self.player.y)
         new_scene = self
-        if self.update_scene == True:
-            new_scene = Scene("map_destroyed_stp_marche.tmx")
+        if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
+            self.current_dialogue = self.dialogue_2
+            self.current_text_number = 0
+            self.enable_dialogue = True
+        elif self.current_dialogue == self.dialogue_2 and self.player.x < 2940 and self.player.y < 1675 and self.player.x > 2800 and self.player.y > 1500:
+            self.current_dialogue = self.dialogue_2_2
+            self.current_text_number = 0
+            self.enable_dialogue = True
+        elif self.current_dialogue == self.dialogue_2_2 and self.player.x < 2000 and self.player.y < 923 and self.player.x > 1600 and self.player.y > 700:
+            self.current_dialogue = self.dialogue_3
+            self.current_text_number = 0
+            self.enable_dialogue = True
+        elif self.current_dialogue == self.dialogue_3 and self.lauch_baby == True:
+            self.lauch_baby = False
+            self.update_scene = True
+            new_scene = Baby_Scene("actual_map_stp_marche.tmx")
+            new_scene.player.x = 1880
+            new_scene.player.y = 682
         return new_scene
 
     
@@ -261,8 +282,9 @@ class Scene:
                     elif self.option_select.enabled:
                         self.option_select.current_option = (self.option_select.current_option + 1) % 2
                     else:
+                        if self.current_dialogue == self.dialogue_3:
+                            self.lauch_baby = True
                         self.enable_dialogue = False
-                        self.current_text_number = 0
                 if event.key == pygame.K_LEFT:
                     if self.option_select.enabled:
                         self.option_select.current_option = (self.option_select.current_option - 1) % 2
@@ -484,7 +506,21 @@ class OptionsSelectEnd:
             pygame.draw.rect(window, (255, 255, 255), (option2_x - 5, options_y - 5, option2_surface.get_width() + 10, option2_surface.get_height() + 10), 4)
 
         
+class BabyScene(Scene):
+    def __init__(self, map_filename):
+        super().__init__(map_filename)
+        self.player = Perso(GS.me, 1880, 682,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
+        self.baby = Pnj(GS.pnj,1880,682,baby_turkish)
+        self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
+        self.filter1.enabled = False
 
+        self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
+        self.filter2.enabled = True
+        self.filter2.disable()
+
+        # For displaying text on the screen
+        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)
+    
 
 class Map:
     def __init__(self, width, height):
