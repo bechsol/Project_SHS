@@ -157,15 +157,19 @@ class Perso(Sprite):
         #pygame.draw.rect(window, (255, 0, 0), (rect_x, rect_y, rect_width, rect_height))
 
     def anim_crouch(self) :
-        if self.animation == 5 :
+        if (self.image != self.images[8][0]) and (self.image != self.images[8][1]) and (self.image != self.images[8][2]) and (self.image != self.images[8][3]) :
+            self.animation = 0
+            self.index = 0
+        if self.animation >= 4 :
             return
         self.index += 1
-        if self.index == PACE :
+        if self.index == 20 :
             self.index = 0
             self.animation += 1
-        if self.animation == 5 :
+        if self.animation == 4 :
             return
         self.image = self.images[8][self.animation]
+
 
     def move_up(self, map_tiles):
         for row in map_tiles:

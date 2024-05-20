@@ -332,6 +332,12 @@ class Scene:
         window.blit(text_surface, text_rect)
 
     def show_dialogue(self, window):
+#Baby crouch
+        if (self.current_text_number == 0 and  self.current_dialogue == self.dialogue_3) :
+            self.player.anim_crouch()
+#Third head movement
+        if (self.current_text_number == 0 and  self.current_dialogue == self.dialogue_2_2) :
+            self.player.anim_crouch()
         if self.current_text_number < len(self.current_dialogue):
             text = [self.current_dialogue[self.current_text_number]]
 
@@ -349,9 +355,7 @@ class Scene:
             self.player.image = self.player.images[2][0]
         if (self.current_text_number == 1 and  self.current_dialogue == self.dialogue_2) :
             self.player.image = self.player.images[3][0]
-#Baby crouch
-        if (self.current_text_number == 0 and  self.current_dialogue == self.dialogue_3) :
-            self.player.anim_crouch()
+
         margin_bottom = 32
         box_height = WINDOW_HEIGHT // 3
         border_size = 8
