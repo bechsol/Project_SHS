@@ -348,6 +348,7 @@ class Scene:
                         self.option_select.enabled = True
 
                 if event.key == pygame.K_RIGHT:
+                    print(self.enable_dialogue)
                     if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1:
                         self.current_text_number += 1
                     elif self.option_select.enabled:
