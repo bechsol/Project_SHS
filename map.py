@@ -138,6 +138,8 @@ class Scene:
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
         self.filter2.disable()
+        self.filter3 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (255, 0, 0), speed=0.01, max_alpha=100)
+        self.filter3.enabled = False
 
         # For displaying text on the screen
         self.font = pygame.font.Font("AUGUSTUS.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
@@ -209,12 +211,16 @@ class Scene:
             "Athéna frappa d\'un trait de foudre le navire d\'Ajax. [...] Ajax trouva refuge sur un rocher. [...] Poséidon l\'entendit, et d\'un coup de trident fit éclater le rocher. Ajax tomba dans la mer et mourut.",
             "Les naufragés avalent par gorgées l\'eau affreuse à boire de la mer grondante ; puis, rendant l\'âme, ils sont emportés sur l\'onde. Les captives s\'abandonnent à la joie alors même qu\'elles expirent."
         ]
-        self.dialogue_7_2 = [
+        self.dialogue_7_3 = [
             "Mais oui je vois des navires au loin, sûrement ceux des Danaéens. Vite une longue vue...",
             "Oh mais j'entends des voix ? Une discussion entre les dieux ? Tendons l'oreille...",
             "Athéna : Face à l'affront d'Ajax envers Cassandre dans mon temple, désormais Poséidon je veux, unie à toi, châtier ceux qui ne l'ont ni puni ni blamé.",
             "Athéna frappa d\'un trait de foudre le navire d\'Ajax. [...] Ajax trouva refuge sur un rocher. [...] Poséidon l\'entendit, et d\'un coup de trident fit éclater le rocher. Ajax tomba dans la mer et mourut.",
             "Les naufragés avalent par gorgées l\'eau affreuse à boire de la mer grondante ; puis, rendant l\'âme, ils sont emportés sur l\'onde. Les captives s\'abandonnent à la joie alors même qu\'elles expirent."
+        ]
+        self.dialogue_8 = [
+            "Et c'est à travers les textes de Virgile, Homère ou bien Euripide et de leur diversité d'approche des moment clé de cette guerre que nous avons pu nous rendre compte comment des textes relatant un même conflit peuvent-être utilisés à des fin diverses",
+            "... J'ai du m'endormir... Quel rêve étrange.  En tout cas, moi je pense que j'aurais été du côté des vainqueurs. "
         ]
         self.current_dialogue = self.dialogue_1
         self.current_text_number = 0
@@ -228,16 +234,31 @@ class Scene:
 
         self.lauch_baby = False
 
-        self.show_png = True
-        self.boat_scene = True
+        self.show_png = False
+        self.boat_scene = False
+        self.chambre_scene = False
         self.png_x = -800
-        self.png_y = -600
+        self.png_y = -400
         self.png_boat = pygame.image.load("boat.png")
-        self.png_chambre = pygame.image.load("chambre.png")
+        png_chambre_unscaled = pygame.image.load("chambre.png")
+
+        # Scale the image
+        original_width, original_height = png_chambre_unscaled.get_size()
+        scaled_width = int(original_width * WINDOW_WIDTH/original_width)
+        scaled_height = int(original_height * WINDOW_HEIGHT*2/3/original_height)
+        self.png_chambre = pygame.transform.scale(png_chambre_unscaled, (scaled_width, scaled_height))
         self.current_png = self.png_boat
+
+        self.current_dialogue = self.dialogue_7_1
+        self.player.x = 1000
+        self.player.y = 1000
 
     def check_update_scene(self):
         new_scene = self
+        print(self.current_text_number)
+
+        if self.boat_scene and self.png_y > -750:
+            self.png_y -= 3
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
             self.current_dialogue = self.dialogue_2
             self.current_text_number = 0
@@ -290,14 +311,29 @@ class Scene:
             self.enable_dialogue = True
             self.filter2.enabled = True
             self.filter2.disable()
-        elif self.current_dialogue == self.dialogue_6 and self.player.y < 500 and self.current_dialogue != self.dialogue_7_1:
+        elif self.current_dialogue == self.dialogue_6 and self.player.y < 700 and self.current_dialogue != self.dialogue_7_1:
             self.troyennes_minigame = False
             self.option_select.enabled = False
             self.current_dialogue = self.dialogue_7_1
             self.current_text_number = 0
             self.enable_dialogue = True
-        elif self.current_dialogue == self.dialogue_7_1 and self.current_text_number > 0:
+        elif self.current_dialogue == self.dialogue_7_1 and self.player.y < 500:
             self.show_png = True
+            self.boat_scene = True
+            self.current_dialogue = self.dialogue_7_2
+            self.current_text_number = 0
+            self.enable_dialogue = True
+            self.filter3.enabled = True
+            self.filter3.enable()
+        elif self.current_dialogue == self.dialogue_7_2 and self.current_text_number == 3:
+            self.boat_scene = False
+            self.chambre_scene = True
+            self.current_dialogue = self.dialogue_8
+            self.current_text_number = 0
+            self.enable_dialogue = True
+            self.current_png = self.png_chambre
+            self.png_x = 0
+            self.png_y = 0
         return new_scene
 
     
@@ -432,18 +468,23 @@ class Scene:
         GS.pnj.update()
         GS.pnj.draw(window)
         GS.me.draw(window)
+        if self.boat_scene and self.show_png:
+            window.blit(self.current_png, (self.png_x, self.png_y))
+        elif self.chambre_scene and self.show_png:
+            window.blit(self.png_boat, (self.png_x, self.png_y))
+            window.blit(self.current_png, (self.png_x, self.png_y-20))
         if not self.filter2.enabled:
             self.filter1.apply(window)
         if not self.filter1.enabled:
             self.filter2.apply(window)
+        if self.filter3.enabled:
+            self.filter3.apply(window)
         if self.display_text:
             self.show_text(window, self.text_to_display)
         elif self.enable_dialogue:
             self.show_dialogue(window)
         elif self.option_select.enabled:
             self.option_select.render(window)
-        if self.boat_scene:
-            window.blit(self.current_png, (self.png_x, self.png_y))
         
 
     def show_text(self, window, text):
@@ -967,21 +1008,26 @@ class Map:
                     tile.render(window, offset)
 
 class Filter:
-    def __init__(self, window_size, color, speed=0.05):
+    def __init__(self, window_size, color, speed=0.05, constant_alpha=-1, max_alpha=255):
         self.window_size = window_size
         self.color = color
+        self.constant_alpha = constant_alpha
         self.speed = speed
         self.enabled = False
         self.animation_progress = 1
         self.direction = "in"
         self.animating = False
+        self.max_alpha = max_alpha
 
     def apply(self, window):
         if self.enabled or self.is_animating():
             # Create a grayscale surface of the same size as the window
             gray_surface = pygame.Surface(self.window_size).convert()
-            gray_surface.fill((0, 0, 0))  # Fill with gray color
-            gray_surface.set_alpha(int(255 * self.animation_progress))  # Set transparency to 128 (50% opacity)
+            gray_surface.fill(self.color)  # Fill with gray color
+            if self.constant_alpha != -1:
+                gray_surface.set_alpha(self.constant_alpha)
+            else:
+                gray_surface.set_alpha(int(self.max_alpha * self.animation_progress))  # Set transparency to 128 (50% opacity)
 
             # Blit the grayscale surface onto the window
             window.blit(gray_surface, (0, 0))
