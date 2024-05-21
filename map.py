@@ -225,12 +225,10 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
         elif self.current_dialogue == self.dialogue_3 and self.lauch_baby == True:
-            """self.lauch_baby = False
+            self.lauch_baby = False
             self.update_scene = True
             self.player.kill()
             new_scene = BabyScene("actual_map_stp_marche.tmx")
-            new_scene.player.x = 1880
-            new_scene.player.y = 682"""
             self.current_dialogue = self.dialogue_4
             self.current_text_number = 0
             self.enable_dialogue = True
@@ -587,6 +585,7 @@ class BabyScene(Scene):
         super().__init__(map_filename)
         self.player = Perso(GS.me, 1880, 782,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
         self.baby = Pnj(GS.pnj,470, 275, baby_turkish)
+        self.player.image = self.player.images[2][0]
         self.lunch_bb_scene = False
         self.lunch_bb = False
         self.start = 0
@@ -631,6 +630,17 @@ class BabyScene(Scene):
                 self.baby.move(self.baby.x - self.count*10,285)  
             if self.lunch_bb :                
                 self.baby.rot()
+    
+    def check_update_scene(self):
+        new_scene = self
+        if (self.end_bb_scene) :
+            keys = pygame.key.get_pressed()  
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT) :
+                    self.baby.kill()
+                    new_scene = Scene("map_final_final.tmx")
+                    return new_scene
+        return new_scene
 
 class TroyennesScene(Scene):
     def __init__(self, map_filename):
