@@ -228,6 +228,14 @@ class Scene:
 
         self.lauch_baby = False
 
+        self.show_png = True
+        self.boat_scene = True
+        self.png_x = -800
+        self.png_y = -600
+        self.png_boat = pygame.image.load("boat.png")
+        self.png_chambre = pygame.image.load("chambre.png")
+        self.current_png = self.png_boat
+
     def check_update_scene(self):
         new_scene = self
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
@@ -288,10 +296,8 @@ class Scene:
             self.current_dialogue = self.dialogue_7_1
             self.current_text_number = 0
             self.enable_dialogue = True
-        elif self.current_dialogue == self.dialogue_7_1 and self.player.y < 300:
-            self.current_dialogue = self.dialogue_7_2
-            self.current_text_number = 0
-            self.enable_dialogue = True
+        elif self.current_dialogue == self.dialogue_7_1 and self.current_text_number > 0:
+            self.show_png = True
         return new_scene
 
     
@@ -433,6 +439,8 @@ class Scene:
             self.show_dialogue(window)
         elif self.option_select.enabled:
             self.option_select.render(window)
+        if self.boat_scene:
+            window.blit(self.current_png, (self.png_x, self.png_y))
         
 
     def show_text(self, window, text):
