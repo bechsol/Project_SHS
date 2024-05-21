@@ -638,6 +638,7 @@ class BabyScene(Scene):
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT) :
                     self.baby.kill()
+                    self.player.kill()
                     new_scene = Scene("map_final_final.tmx")
                     return new_scene
         return new_scene
