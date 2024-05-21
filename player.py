@@ -3,6 +3,8 @@ import pygame
 MAP_WIDTH = 70
 MAP_HEIGHT = 50
 
+PERSO_SPEED = 3
+
 TILE_SIZE = 64
 
 PACE = 5
@@ -139,7 +141,7 @@ class Perso(Sprite):
         self.y = y 
         self.x_size = x_size
         self.y_size = y_size
-        self.speed = 10
+        self.speed = PERSO_SPEED
         self.sign_sensitivity = 2
         self.image = self.images[0][0]
         self.rect = self.image.get_rect()

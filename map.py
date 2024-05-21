@@ -406,9 +406,12 @@ class Scene:
                         self.option_select.enabled = True
 
                 if event.key == pygame.K_RIGHT:
-                    print(self.current_text_number)
-                    if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1:
-                        self.current_text_number += 1
+                    if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1 :
+                        if self.current_dialogue == self.dialogue_6_1 or self.current_dialogue == self.dialogue_6_2 or self.current_dialogue == self.dialogue_6_3 or self.current_dialogue == self.dialogue_6_4 :
+                            if not self.hecube.update_pos() and not self.polyxene.update_pos() and not self.andromaque.update_pos() and not self.cassandre.update_pos():
+                                self.current_text_number += 1
+                        else :
+                            self.current_text_number += 1
                     elif self.option_select.enabled:
                         self.option_select.current_option = (self.option_select.current_option + 1) % 4
                     else:
