@@ -73,7 +73,8 @@ for i in range(1,7) :
 
 #PNJ
 baby = pygame.image.load("BabyBundles.png")
-baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,32)),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,32)),pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),True,True)]
+baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,32)),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,32)),
+                pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),True,True),baby.subsurface((32,128,32,32))]
 #baby_turkish = [pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),False,True),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,32)),pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),True,False)]
 
 athena = pygame.image.load("athena.png")
@@ -114,7 +115,7 @@ class Scene:
         self.map.load_tmx(map_filename)
         self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array,
                                                 main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj,main_acc_array])
-#        self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
+        #self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
 
@@ -212,7 +213,6 @@ class Scene:
         self.lauch_baby = False
 
     def check_update_scene(self):
-        #print(self.player.x, self.player.y)
         new_scene = self
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
             self.current_dialogue = self.dialogue_2
@@ -227,12 +227,10 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
         elif self.current_dialogue == self.dialogue_3 and self.lauch_baby == True:
-            """self.lauch_baby = False
+            self.lauch_baby = False
             self.update_scene = True
             self.player.kill()
             new_scene = BabyScene("actual_map_stp_marche.tmx")
-            new_scene.player.x = 1880
-            new_scene.player.y = 682"""
             self.current_dialogue = self.dialogue_4
             self.current_text_number = 0
             self.enable_dialogue = True
@@ -591,9 +589,14 @@ class OptionsSelectEnd:
 class BabyScene(Scene):
     def __init__(self, map_filename):
         super().__init__(map_filename)
-        self.player = Perso(GS.me, 1880, 682,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
+        self.player = Perso(GS.me, 1880, 782,[main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
         self.baby = Pnj(GS.pnj,470, 275, baby_turkish)
-
+        self.player.image = self.player.images[2][0]
+        self.lunch_bb_scene = False
+        self.lunch_bb = False
+        self.start = 0
+        self.count = 0
+        self.end_bb_scene = False
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
         self.filter2.disable()
@@ -604,22 +607,57 @@ class BabyScene(Scene):
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-
-        self.baby.rot()
-        self.baby.move(-100,275)
-        self.baby.update_pos()
-
+        self.count_click()
+        if not self.baby.update_pos() and self.lunch_bb == True :
+            self.end_bb_scene = True
+            self.baby.image = self.baby.images[4]
         GS.me.update()
         GS.pnj.update()
         GS.pnj.draw(window)
         GS.me.draw(window)
 
+    def count_click (self) :
+        if self.end_bb_scene :
+            return 
+        keys = pygame.key.get_pressed()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.KEYUP and self.lunch_bb_scene == False:
+                if event.key == pygame.K_SPACE :
+                    self.start = pygame.time.get_ticks()
+                    self.lunch_bb_scene = True
+            elif event.type == pygame.KEYUP and self.lunch_bb_scene == True:
+                if event.key == pygame.K_SPACE :
+                    self.count += 1
+                    
+        if self.lunch_bb_scene :
+            if pygame.time.get_ticks() - self.start >= 10000 and self.lunch_bb == False:
+                self.lunch_bb = True
+                self.baby.move(self.baby.x - self.count*10,285)  
+            if self.lunch_bb :                
+                self.baby.rot()
+    
+    def check_update_scene(self):
+        new_scene = self
+        if (self.end_bb_scene) :
+            keys = pygame.key.get_pressed()  
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT) :
+                    self.baby.kill()
+                    new_scene = Scene("map_final_final.tmx")
+                    return new_scene
+        return new_scene
 
 class TroyennesScene(Scene):
     def __init__(self, map_filename):
         super().__init__(map_filename)
         self.positions = [(325, 2458), (329, 3034), (1416, 2458), (1414, 3034)]
-        self.player = Perso(GS.me, self.positions[0][0], self.positions[0][1], [main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
+        la_position_que_clement_veut = (912,2650)
+        self.player = Perso(GS.me, la_position_que_clement_veut[0], la_position_que_clement_veut[1], [main_front_array,main_back_array,main_left_array,main_right_array,main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj])
+        self.cassandre = Pnj(GS.pnj,560,150,cass_dance)
+        self.hecube = Pnj(GS.pnj,480,150,hecu_dance)
+        self.polyxene = Pnj(GS.pnj,400,150,poly_dance)
+        self.andromaque = Pnj(GS.pnj,320,150,androm_dance)
 
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
@@ -627,7 +665,6 @@ class TroyennesScene(Scene):
 
         self.option_select = OptionsSelectTroyennes("Qui faut-il donner à Achille ?")
         
-
         # For displaying text on the screen
         self.font = pygame.font.Font("AUGUSTUS.ttf", 20)
 
@@ -655,8 +692,16 @@ class TroyennesScene(Scene):
     def render(self, window):
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
+
+        self.cassandre.dance()
+        self.andromaque.dance()
+        self.hecube.dance()
+        self.polyxene.dance()
+
+        GS.pnj.update()
         GS.me.update()
         GS.me.draw(window)
+        GS.pnj.draw(window)
         self.option_select.render(window)
 
 
