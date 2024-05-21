@@ -85,24 +85,40 @@ androm_d = androm.subsurface((0,128,832,64))
 androm_dance = [androm_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
     androm_dance += [androm_d.subsurface((64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
+andro_back = main_char_pyj.subsurface((0,512,832,64))
+andro_b = [andro_back.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    andro_b += [andro_back.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 hecu = pygame.image.load("hecube.png")
 hecu_d = hecu.subsurface((0,128,832,64))
 hecu_dance = [hecu_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
     hecu_dance += [hecu_d.subsurface((64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
+hecu_back = hecu.subsurface((0,512,832,64))
+hecu_b = [hecu_back.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    hecu_b += [hecu_back.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 cass = pygame.image.load("cassandre.png")
 cass_d = cass.subsurface((0,128,832,64))
 cass_dance = [cass_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
     cass_dance += [cass_d.subsurface((0 + 64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
+cass_back = cass.subsurface((0,512,832,64))
+cass_b = [cass_back.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    cass_b += [cass_back.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 poly = pygame.image.load("polyxene.png")
 poly_d = poly.subsurface((0,128,832,64))
 poly_dance = [poly_d.subsurface((0,11,SPRITE_HEIGHT,SPRITE_HEIGHT))]
 for i in range(1,6) :
     poly_dance += [poly_d.subsurface((64*i,63-SPRITE_HEIGHT,SPRITE_HEIGHT,SPRITE_HEIGHT))]
+poly_back = poly.subsurface((0,512,832,64))
+poly_b = [poly_back.subsurface((16,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
+for i in range(1,7) :
+    poly_b += [poly_back.subsurface((16 + 64*i,63-SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT))]
 
 troy_horse = pygame.image.load("troy_horse.png")
 cheval = troy_horse.subsurface((576,0,256,384))
@@ -118,7 +134,7 @@ class Scene:
         #self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
-
+        self.troyenne_once = True
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
         self.filter2.disable()
@@ -241,9 +257,27 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
             self.troyennes_minigame = True
+        elif self.current_dialogue == self.dialogue_5 :
+            if self.current_text_number == 1 and self.troyenne_once:
+                self.troyenne_once = False
+                self.cassandre = Pnj(GS.pnj,560,150,cass_dance)
+                self.hecube = Pnj(GS.pnj,480,150,hecu_dance)
+                self.polyxene = Pnj(GS.pnj,400,150,poly_dance)
+                self.andromaque = Pnj(GS.pnj,320,150,androm_dance)
+            if self.current_text_number >= 1 :    
+                self.cassandre.dance()
+                self.hecube.dance()
+                self.polyxene.dance()
+                self.andromaque.dance()
+            if self.current_text_number >= 5:
+                self.cassandre.kill()
+                self.hecube.kill()
+                self.polyxene.kill()
+                self.andromaque.kill()
+        elif self.minigame_progress >= 4 and self.player.y < 2062 and self.current_dialogue != self.dialogue_7_1:
             self.filter2.enabled = True
             self.filter2.disable()
-        elif self.minigame_progress >= 4 and self.enable_dialogue == False:
+        elif self.troyennes_minigame == True and self.minigame_progress >= 4 and self.enable_dialogue == False:
             self.troyennes_minigame = False
             self.option_select.enabled = False
             self.current_dialogue = self.dialogue_6
@@ -307,6 +341,8 @@ class Scene:
                             if self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_1
+                                self.polyxene = Pnj(GS.pnj,300,500,poly_b)
+                                
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
@@ -314,6 +350,7 @@ class Scene:
                             if self.player.x < 500 and self.player.x > 250 and self.player.y < 3150 and self.player.y > 2950:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_2
+                                self.andromaque = Pnj(GS.pnj,300,500,andro_b)
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
@@ -321,6 +358,7 @@ class Scene:
                             if self.player.x < 1550 and self.player.x > 1250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_4
+                                self.cassandre = Pnj(GS.pnj,300,500,cass_b)
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
@@ -328,6 +366,7 @@ class Scene:
                             if self.player.x < 1550 and self.player.x > 1250 and self.player.y < 3150 and self.player.y > 2950:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_3
+                                self.hecube = Pnj(GS.pnj,300,500,hecu_b)
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True 
@@ -377,10 +416,10 @@ class Scene:
         return True
     
     def render(self, window):
+        print(self.player.x,self.player.y)
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-        #self.cassandre.dance()
-        #self.cassandre.update_pos()
+
         GS.me.update()
         GS.pnj.update()
         GS.pnj.draw(window)
@@ -441,7 +480,23 @@ class Scene:
             self.player.image = self.player.images[2][0]
         if (self.current_text_number == 1 and  self.current_dialogue == self.dialogue_2) :
             self.player.image = self.player.images[3][0]
-
+#poly move
+        if (self.current_dialogue == self.dialogue_6_1):
+            self.polyxene.move(300,200)
+            if not self.polyxene.update_pos() :
+                self.polyxene.kill()
+        if (self.current_dialogue == self.dialogue_6_2):
+            self.andromaque.move(300,200)
+            if not self.andromaque.update_pos() :
+                self.andromaque.kill()
+        if (self.current_dialogue == self.dialogue_6_3):
+            self.hecube.move(300,200)
+            if not self.hecube.update_pos() :
+                self.hecube.kill()
+        if (self.current_dialogue == self.dialogue_6_4):
+            self.cassandre.move(300,200)
+            if not self.cassandre.update_pos() :
+                self.cassandre.kill()
         margin_bottom = 32
         box_height = WINDOW_HEIGHT // 3
         border_size = 8
@@ -687,11 +742,13 @@ class BabyScene(Scene):
         return new_scene
     
     def show_dialogue(self, window):
+
         if self.current_text_number < len(self.current_dialogue):
             text = [self.current_dialogue[self.current_text_number]]
+
         else:
             text = []
-        
+
         margin_bottom = 32
         box_height = WINDOW_HEIGHT // 3
         border_size = 8
@@ -768,9 +825,7 @@ class BabyScene(Scene):
             (arrow_x, arrow_y + arrow_size)
         ]
 
-        pygame.draw.polygon(window, arrow_color, arrow_points)  
-
-
+        pygame.draw.polygon(window, arrow_color, arrow_points)   
 
 
 
