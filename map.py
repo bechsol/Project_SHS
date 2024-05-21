@@ -168,23 +168,25 @@ class Scene:
             "Tiens, les cendres ont l'air encore chaudes. Peut-être que je me suis évanoui moins longtemps que je pensais... Mais peut-être qu'ils viennent de partir tous. Il faut que je fonce à la plage, les bateaux sont peut-être encore là."
         ]
         self.dialogue_6_1 = [
-            "C'est correct!",
+            "C'est vrai!",
             "Polyxène-Achille: Un grand héros comme Achille se doit d'être accompagné dans la mort... mais quand même, quelle barbarie."
         ]
         self.dialogue_6_2 = [
-            "C'est correct!",
+            "C'est vrai!",
             "Andromaque-Neoptolème: Son bébé mort, son mari mort... Andromaque a été embarquée par Neoptolème... Je crois qu'il voulait l'épouser."
         ]
         self.dialogue_6_3 = [
-            "C'est correct!",
+            "C'est vrai!",
             "Hécube-Ulysse: Pauvre Hécube, après avoir perdu toute sa famille elle est partie à bord du navire d'Ulysse."
         ]
         self.dialogue_6_4 = [
-            "C'est correct!",
+            "C'est vrai!",
             "Cassandre-Agamemnon: La prêtresse d'Apollon a prononcé une prophetie avant d'être emmenée... un destin funeste à chacun pour le retour outre mer."
         ]
         self.dialogue_7_1 = [
-            "Bon je commence à y voir plus clair... Mais ?!? C'est le bateau des Danéens au loin ? Vite, une longue vue...",
+            "Bon je commence à y voir plus clair... Mais ?!? C'est le bateau des Danéens au loin ? Vite, une longue vue..."
+        ]
+        self.dialogue_7_2 = [
             "Oh mais j'entends des voix ? Une discussion entre les dieux ? Tendons l'oreille...",
             "Athéna : Face à l'affront d'Ajax envers Cassandre dans mon temple, désormais Poséidon je veux, unie à toi, châtier ceux qui ne l'ont ni puni ni blamé.",
             "Athéna frappa d\'un trait de foudre le navire d\'Ajax. [...] Ajax trouva refuge sur un rocher. [...] Poséidon l\'entendit, et d\'un coup de trident fit éclater le rocher. Ajax tomba dans la mer et mourut.",
@@ -239,7 +241,7 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
             self.troyennes_minigame = True
-        elif self.minigame_progress >= 4 and self.player.y < 2062:
+        elif self.minigame_progress >= 4 and self.player.y < 2062 and self.current_dialogue != self.dialogue_7_1:
             self.troyennes_minigame = False
             self.option_select.enabled = False
             self.current_dialogue = self.dialogue_7_1
@@ -294,40 +296,44 @@ class Scene:
                     print(self.minigame_progress)
                     if self.option_select.enabled:
                         if self.option_select.current_option == 0:
-                            if self.player.x < 450 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
+                            if self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_1
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
                         elif self.option_select.current_option == 1:
-                            if self.player.x < 450 and self.player.x > 300 and self.player.y < 3150 and self.player.y > 2950:
+                            if self.player.x < 500 and self.player.x > 250 and self.player.y < 3150 and self.player.y > 2950:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_2
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
                         elif self.option_select.current_option == 2:
-                            if self.player.x < 1500 and self.player.x > 1300 and self.player.y < 2500 and self.player.y > 2400:
-                                self.option_select.enabled = False
-                                self.current_dialogue = self.dialogue_6_3
-                                self.minigame_progress += 1
-                                self.current_text_number = 0
-                                self.enable_dialogue = True
-                        elif self.option_select.current_option == 3:
-                            if self.player.x < 1500 and self.player.x > 1300 and self.player.y < 3150 and self.player.y > 2950:
+                            if self.player.x < 1550 and self.player.x > 1250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_4
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
+                                self.enable_dialogue = True
+                        elif self.option_select.current_option == 3:
+                            if self.player.x < 1550 and self.player.x > 1250 and self.player.y < 3150 and self.player.y > 2950:
+                                self.option_select.enabled = False
+                                self.current_dialogue = self.dialogue_6_3
+                                self.minigame_progress += 1
+                                self.current_text_number = 0
                                 self.enable_dialogue = True 
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 450 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
+                        self.option_select.text_to_display = "Qui faut-il donner à Achille ?"
                         self.option_select.enabled = True
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 450 and self.player.x > 300 and self.player.y < 3150 and self.player.y > 2950:
+                        self.option_select.text_to_display = "Qui faut-il donner à Neoptolème ?"
                         self.option_select.enabled = True
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 1500 and self.player.x > 1300 and self.player.y < 2500 and self.player.y > 2400:
+                        self.option_select.text_to_display = "Qui faut-il donner à Agamemnon ?"
                         self.option_select.enabled = True
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 1500 and self.player.x > 1300 and self.player.y < 3150 and self.player.y > 2950:
+                        self.option_select.text_to_display = "Qui faut-il donner à Ulysse ?"
                         self.option_select.enabled = True
                     
 
@@ -348,7 +354,7 @@ class Scene:
                         self.option_select.enabled = True
 
                 if event.key == pygame.K_RIGHT:
-                    print(self.enable_dialogue)
+                    print(self.current_text_number)
                     if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1:
                         self.current_text_number += 1
                     elif self.option_select.enabled:
