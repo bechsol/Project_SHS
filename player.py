@@ -46,6 +46,7 @@ class Pnj(Sprite):
         self.y = y 
         self.x_size = x_size
         self.y_size = y_size
+        self.index = 0
         self.pace_count = 0
         self.dest =[x,y]
         self.image = self.images[0]
@@ -54,6 +55,7 @@ class Pnj(Sprite):
         self.rect = self.image.get_rect() 
         self.rect.x = x
         self.rect.y = y
+        self.animation = 0
 
     def update_pos(self) :
         '''
@@ -71,9 +73,15 @@ class Pnj(Sprite):
         elif (self.dest[1] != self.y) :
             self.pace_count += 1
             if self.pace_count == PACE_PNJ :
-                print(self.y)
                 self.pace_count = 0
                 self.y += y_move
+                self.index += 1
+                if self.index == PACE and len(self.images) > 5:
+                    self.index = 0
+                    self.animation += 1
+                    if self.animation == 7 :
+                        self.animation = 0
+                    self.image = self.images[self.animation]
         elif (self.dest[0] != self.x) :
             self.pace_count += 1
             if self.pace_count == PACE_PNJ :
