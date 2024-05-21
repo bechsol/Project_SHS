@@ -46,7 +46,7 @@ class Pnj(Sprite):
         self.y = y 
         self.x_size = x_size
         self.y_size = y_size
-        self.index = 0
+        self.index_bis = 0
         self.pace_count = 0
         self.dest =[x,y]
         self.image = self.images[0]
@@ -75,9 +75,9 @@ class Pnj(Sprite):
             if self.pace_count == PACE_PNJ :
                 self.pace_count = 0
                 self.y += y_move
-                self.index += 1
-                if self.index == PACE and len(self.images) > 5:
-                    self.index = 0
+                self.index_bis += 1
+                if self.index_bis == PACE and len(self.images) > 5:
+                    self.index_bis = 0
                     self.animation += 1
                     if self.animation == 7 :
                         self.animation = 0

@@ -350,7 +350,7 @@ class Scene:
                             if self.player.x < 1550 and self.player.x > 1250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_4
-                                self.cassandre = Pnj(GS.pnj,300,500,cass_b)
+                                self.cassandre = Pnj(GS.pnj,550,500,cass_b)
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
@@ -358,7 +358,7 @@ class Scene:
                             if self.player.x < 1550 and self.player.x > 1250 and self.player.y < 3150 and self.player.y > 2950:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_3
-                                self.hecube = Pnj(GS.pnj,300,500,hecu_b)
+                                self.hecube = Pnj(GS.pnj,550,500,hecu_b)
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True 
@@ -478,15 +478,15 @@ class Scene:
             if not self.polyxene.update_pos() :
                 self.polyxene.kill()
         if (self.current_dialogue == self.dialogue_6_2):
-            self.andromaque.move(300,200)
+            self.andromaque.move(300,250)
             if not self.andromaque.update_pos() :
                 self.andromaque.kill()
         if (self.current_dialogue == self.dialogue_6_3):
-            self.hecube.move(300,200)
+            self.hecube.move(550,250)
             if not self.hecube.update_pos() :
                 self.hecube.kill()
         if (self.current_dialogue == self.dialogue_6_4):
-            self.cassandre.move(300,200)
+            self.cassandre.move(550,200)
             if not self.cassandre.update_pos() :
                 self.cassandre.kill()
         margin_bottom = 32
