@@ -3,7 +3,7 @@ import pygame
 MAP_WIDTH = 70
 MAP_HEIGHT = 50
 
-PERSO_SPEED = 3
+PERSO_SPEED = 15
 
 TILE_SIZE = 64
 
