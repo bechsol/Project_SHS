@@ -334,7 +334,7 @@ class Scene:
                 return False
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
-                    print(self.minigame_progress)
+#                    print(self.minigame_progress)
                     if self.option_select.enabled:
                         if self.option_select.current_option == 0:
                             if self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
@@ -418,7 +418,7 @@ class Scene:
         return True
     
     def render(self, window):
-        print(self.player.x,self.player.y)
+#        print(self.player.x,self.player.y)
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
 
