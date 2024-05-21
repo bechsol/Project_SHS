@@ -274,15 +274,14 @@ class Scene:
                 self.hecube.kill()
                 self.polyxene.kill()
                 self.andromaque.kill()
-        elif self.minigame_progress >= 4 and self.player.y < 2062 and self.current_dialogue != self.dialogue_7_1:
-            self.filter2.enabled = True
-            self.filter2.disable()
         elif self.troyennes_minigame == True and self.minigame_progress >= 4 and self.enable_dialogue == False:
             self.troyennes_minigame = False
             self.option_select.enabled = False
             self.current_dialogue = self.dialogue_6
             self.current_text_number = 0
             self.enable_dialogue = True
+            self.filter2.enabled = True
+            self.filter2.disable()
         elif self.current_dialogue == self.dialogue_6 and self.player.y < 500 and self.current_dialogue != self.dialogue_7_1:
             self.troyennes_minigame = False
             self.option_select.enabled = False

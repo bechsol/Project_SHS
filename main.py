@@ -29,6 +29,7 @@ clock = pygame.time.Clock()
 #scene_1 = BabyScene("actual_map_stp_marche.tmx")
 #scene_1 = Scene("map_destroyed_stp_marche.tmx")
 #scene_1 = TroyennesScene("actual_map_stp_marche.tmx")
+#scene_1 = Scene("C:\Users\bened\OneDrive\Dokumente\Studium\MA2\SHS\Game_maps\map_final_final_final.tmx")
 scene_1 = Scene("map_final_final.tmx")
 
 
