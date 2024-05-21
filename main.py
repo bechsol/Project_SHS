@@ -1,7 +1,6 @@
 import pygame
 
 from map import Scene
-from map import TroyennesScene
 from map import BabyScene
 from player import Perso
 
