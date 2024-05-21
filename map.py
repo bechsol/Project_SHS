@@ -645,7 +645,11 @@ class BabyScene(Scene):
                 if event.type == pygame.KEYDOWN and (event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT) :
                     self.baby.kill()
                     new_scene = Scene("map_final_final.tmx")
-                    return new_scene
+                    new_scene.player.x = 920
+                    new_scene.player.y = 2600
+                    new_scene.current_dialogue = new_scene.dialogue_4
+                    new_scene.enable_dialogue = False
+                    self.player.kill()
         return new_scene
 
 class TroyennesScene(Scene):
