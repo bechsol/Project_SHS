@@ -297,8 +297,7 @@ class Scene:
     def check_update_scene(self):
         new_scene = self
 #        print(self.current_text_number)
-        print(self.current_music)
-
+        print(self.player.x, self.player.y)
         if self.boat_scene and self.png_y > -750:
             self.png_y -= 3
         elif self.boat_scene :
@@ -325,7 +324,7 @@ class Scene:
             self.current_dialogue = self.dialogue_2_2
             self.current_text_number = 0
             self.enable_dialogue = True
-        elif self.current_dialogue == self.dialogue_2_2 and self.player.x < 2000 and self.player.y < 923 and self.player.x > 1600 and self.player.y > 700:
+        elif self.current_dialogue == self.dialogue_2_2 and self.player.x < 1900 and self.player.y < 800 and self.player.x > 1600 and self.player.y > 650:
             self.current_dialogue = self.dialogue_3
             self.current_text_number = 0
             self.enable_dialogue = True
@@ -340,8 +339,8 @@ class Scene:
             new_scene.current_music = self.current_music + 1
             new_scene.play_music()
         elif self.current_dialogue == self.dialogue_4 and self.player.x < 1712 and self.player.y > 2062:
-            self.player.x = 860
-            self.player.y = 2600
+            self.player.x = 864
+            self.player.y = 2500
             self.current_dialogue = self.dialogue_5
             self.current_text_number = 0
             self.enable_dialogue = True
