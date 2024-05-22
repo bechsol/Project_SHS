@@ -279,9 +279,9 @@ class Scene:
         self.png_chambre = pygame.transform.scale(png_chambre_unscaled, (scaled_width, scaled_height))
         self.current_png = self.png_boat
 
-        self.current_dialogue = self.dialogue_7_1
-        self.player.x = 1000
-        self.player.y = 1000
+        #self.current_dialogue = self.dialogue_7_1
+        #self.player.x = 1000
+        #self.player.y = 1000
 
         self.fill_screen_black = False
 
@@ -321,7 +321,7 @@ class Scene:
             self.lauch_baby = False
             self.update_scene = True
             self.player.kill()
-            new_scene = BabyScene("map_final_final.tmx")
+            new_scene = BabyScene("map_destroyed_sans_bebe.tmx")
             self.current_dialogue = self.dialogue_4
             self.current_text_number = 0
             self.enable_dialogue = True
@@ -332,6 +332,8 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
             self.troyennes_minigame = True
+            self.filter2.enabled = True
+            self.filter2.disable()
         elif self.current_dialogue == self.dialogue_5 :
             if self.current_text_number == 1 and self.troyenne_once:
                 self.troyenne_once = False
@@ -371,7 +373,7 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
             self.filter3.enabled = True
-            self.filter3.enable()
+            #self.filter3.enable()
         elif self.current_dialogue == self.dialogue_7_2 and self.current_text_number == 3:
             self.fill_screen_black = True
             self.show_png = False
@@ -381,7 +383,7 @@ class Scene:
             self.option_select = OptionsSelectEnd(self.dialogue_8_choix[0])
             self.option_select.enabled = True
             self.current_text_number = 0
-            self.filter3.disable()
+            #self.filter3.disable()
             self.enable_dialogue = False
         elif self.current_dialogue == self.dialogue_7_2 and self.option_select.text_to_display == self.dialogue_8_choix[0] and self.option_select.enabled == False:
             self.current_dialogue = self.dialogue_9
