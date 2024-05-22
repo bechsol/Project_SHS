@@ -152,12 +152,12 @@ class Scene:
         self.dialogue_1 = [
             "Aie, ma tête... ",
             "Mais... Mais où je suis moi?",
-            "Ça me revient, l\'assaut de Troie! Mais où sont passé les autres? Où est mon armée troyenne... je veux dire athénienne... Non, troyenne...",
+            "Ça me revient, l\'assaut de Troie! Mais où sont passés les autres? Où est mon armée troyenne... je veux dire achéenne... Non, troyenne...",
             "Le coup que j'ai reçu devait être plus fort que je ne le pensais, je n'arrive même pas à me souvenir de mon camp.",
             "Je devrais explorer les environs, trouver des indices, ça devrait m'aider à me rafraichir la mémoire."
         ]
         self.dialogue_2 = [
-            "Oh un cheval en bois... Mais oui c'est ça le cheval de bois ! Quelle ruse malicieuse ! Il me semble que l'idée venait d'Ulysse et que Epeos a dirigé la construction. Mais... Mais... ",
+            "Oh un cheval en bois... Mais oui c'est ça le cheval de bois ! Quelle ruse malicieuse ! Il me semble que l'idée venait d'Ulysse et qu'Epeos a dirigé la construction. Mais... Mais... ",
             "Je suis sûr de louper quelque chose..."
         ]
         self.dialogue_2_2 = [
@@ -219,8 +219,8 @@ class Scene:
             "Les naufragés avalent par gorgées l\'eau affreuse à boire de la mer grondante ; puis, rendant l\'âme, ils sont emportés sur l\'onde. Les captives s\'abandonnent à la joie alors même qu\'elles expirent."
         ]
         self.dialogue_8 = [
-            "Et c'est à travers les textes de Virgile, Homère ou bien Euripide et de leur diversité d'approche des moment clé de cette guerre que nous avons pu nous rendre compte comment des textes relatant un même conflit peuvent-être utilisés à des fin diverses",
-            "... J'ai du m'endormir... Quel rêve étrange.  En tout cas, moi je pense que j'aurais été du côté des vainqueurs. "
+            "Et c'est à travers les textes de Virgile, Homère ou bien Euripide et de leur diversité d'approche des moments clé de cette guerre, que nous avons pu nous rendre compte comment des textes relatant un même conflit peuvent-être utilisés à des fin diverses",
+            "... J'ai dû m'endormir... Quel rêve étrange.  En tout cas, moi je pense que j'aurais été du côté des vainqueurs. "
         ]
         self.current_dialogue = self.dialogue_1
         self.current_text_number = 0
@@ -376,7 +376,7 @@ class Scene:
                 return False
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
-                    print(self.minigame_progress)
+#                    print(self.minigame_progress)
                     if self.option_select.enabled:
                         if self.option_select.current_option == 0:
                             if self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
@@ -460,7 +460,7 @@ class Scene:
         return True
     
     def render(self, window):
-        print(self.player.x,self.player.y)
+#        print(self.player.x,self.player.y)
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
 
