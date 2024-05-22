@@ -288,7 +288,7 @@ class Scene:
 
     def check_update_scene(self):
         new_scene = self
-        print(self.current_text_number)
+#        print(self.current_text_number)
 
         if self.boat_scene and self.png_y > -750:
             self.png_y -= 3
