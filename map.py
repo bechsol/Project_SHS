@@ -138,7 +138,7 @@ class Scene:
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
         self.filter2.disable()
-        self.filter3 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (255, 0, 0), speed=0.01, max_alpha=100)
+        self.filter3 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (175, 30, 30), speed=0.01, max_alpha=50)
         self.filter3.enabled = False
 
         # For displaying text on the screen
@@ -218,9 +218,37 @@ class Scene:
             "Athéna frappa d\'un trait de foudre le navire d\'Ajax. [...] Ajax trouva refuge sur un rocher. [...] Poséidon l\'entendit, et d\'un coup de trident fit éclater le rocher. Ajax tomba dans la mer et mourut.",
             "Les naufragés avalent par gorgées l\'eau affreuse à boire de la mer grondante ; puis, rendant l\'âme, ils sont emportés sur l\'onde. Les captives s\'abandonnent à la joie alors même qu\'elles expirent."
         ]
-        self.dialogue_8 = [
-            "Et c'est à travers les textes de Virgile, Homère ou bien Euripide et de leur diversité d'approche des moments clé de cette guerre, que nous avons pu nous rendre compte comment des textes relatant un même conflit peuvent-être utilisés à des fin diverses",
-            "... J'ai dû m'endormir... Quel rêve étrange.  En tout cas, moi je pense que j'aurais été du côté des vainqueurs. "
+        self.dialogue_8_choix = [
+            "Qui sont les véritables vainqueurs de la guerre de Troie?"
+        ]   
+        self.dialogue_9 = [
+            "Et c'est à travers les textes de Virgile, Homère ou bien Euripide et de leur diversité d'approche des moment clé de cette guerre que nous avons pu nous rendre compte comment des textes relatant un même conflit peuvent-être utilisés à des fin diverses",
+        ]
+        self.dialogue_10 = [
+            "Quel rêve étrange… Cette présentation de SHS m\'a vraiment bouleversé l\'esprit !  En tout cas, moi je pense que j'aurais été du côté des vainqueurs. ",
+            "Merci d'avoir participé ! ",
+            "CREDITS:",
+            "Assets: ",
+            "LPC compatible Ancient Greek Architecture, par Wolthera van Hövell tot Westerflier [Creative Commons Attribution v4.0 International]",
+            "LPC Tile Atlas, par Casper Nilsson, Daniel Eddeland, Johann CHARLOT, Lanea Zimmerman [CC-BY-SA 3.0, GNU GPL 3.0]",
+            "LPC Submissions Merged, par DeadlyEssence01 [CC-BY-SA 3.0, GPL 3.0, GPL 2.0]",
+            "[LPC] Signposts, graves, line cloths and scare crow, par Reemax [CC-BY-SA]",
+            "LPC Babies, Death's Darling [CC-BY-SA 3.0]",
+            "Générateur de personnage LPC: ",
+            "Universal LPC Spritesheet Generator, par bluecarrot16, Benjamin K. Smith (BenCreating), Evert, Eliza Wyatt (ElizaWy), TheraHedwig, MuffinElZangano, Durrani, Johannes Sj?lund (wulax), Stephen Challener (Redshrike) [Creative Commons Attribution-ShareAlike 3.0]",
+            "Musiques: ",
+            "Le maître de l'olympe OST par Impression Games",
+            "Ready pixel one par Pix [CC0]",  
+            "Searching for a body par Pix [CC0]",
+            "Rape me de Nirvana (8-bit cover par Нік Чема  Nick Chema Music)",
+            "Merci à ",
+            "Euripide",
+            "Virgile",  
+            "Quintus de Smyrne",
+            "Eschyle",
+            "Homère",
+            "Pseudo-Apollodore",
+            "Pour le script"
         ]
         self.current_dialogue = self.dialogue_1
         self.current_text_number = 0
@@ -253,12 +281,16 @@ class Scene:
         self.player.x = 1000
         self.player.y = 1000
 
+        self.fill_screen_black = False
+
     def check_update_scene(self):
         new_scene = self
         print(self.current_text_number)
 
         if self.boat_scene and self.png_y > -750:
             self.png_y -= 3
+
+
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
             self.current_dialogue = self.dialogue_2
             self.current_text_number = 0
@@ -275,7 +307,7 @@ class Scene:
             self.lauch_baby = False
             self.update_scene = True
             self.player.kill()
-            new_scene = BabyScene("actual_map_stp_marche.tmx")
+            new_scene = BabyScene("map_final_final.tmx")
             self.current_dialogue = self.dialogue_4
             self.current_text_number = 0
             self.enable_dialogue = True
@@ -326,14 +358,30 @@ class Scene:
             self.filter3.enabled = True
             self.filter3.enable()
         elif self.current_dialogue == self.dialogue_7_2 and self.current_text_number == 3:
+            self.fill_screen_black = True
+            self.show_png = False
             self.boat_scene = False
-            self.chambre_scene = True
-            self.current_dialogue = self.dialogue_8
+            self.chambre_scene = False
+            self.enable_dialogue = False
+            self.option_select = OptionsSelectEnd(self.dialogue_8_choix[0])
+            self.option_select.enabled = True
+            self.current_text_number = 0
+            self.filter3.disable()
+            self.enable_dialogue = False
+        elif self.current_dialogue == self.dialogue_7_2 and self.option_select.text_to_display == self.dialogue_8_choix[0] and self.option_select.enabled == False:
+            self.current_dialogue = self.dialogue_9
             self.current_text_number = 0
             self.enable_dialogue = True
-            self.current_png = self.png_chambre
+        elif self.current_dialogue == self.dialogue_9 and self.current_text_number == 1:
+            self.fill_screen_black = False
+            self.show_png = True
+            self.boat_scene = False
             self.png_x = 0
             self.png_y = 0
+            self.chambre_scene = True
+            self.current_dialogue = self.dialogue_10
+            self.current_text_number = 0
+            self.enable_dialogue = True
         return new_scene
 
     
@@ -379,7 +427,9 @@ class Scene:
 #                    print(self.minigame_progress)
                     if self.option_select.enabled:
                         if self.option_select.current_option == 0:
-                            if self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
+                            if not self.troyennes_minigame:
+                                self.option_select.enabled = False
+                            elif self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_1
                                 self.polyxene = Pnj(GS.pnj,300,500,poly_b)
@@ -388,7 +438,9 @@ class Scene:
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
                         elif self.option_select.current_option == 1:
-                            if self.player.x < 500 and self.player.x > 250 and self.player.y < 3150 and self.player.y > 2950:
+                            if not self.troyennes_minigame:
+                                self.option_select.enabled = False
+                            elif self.player.x < 500 and self.player.x > 250 and self.player.y < 3150 and self.player.y > 2950:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_2
                                 self.andromaque = Pnj(GS.pnj,300,500,andro_b)
@@ -442,7 +494,9 @@ class Scene:
                         self.option_select.enabled = True
 
                 if event.key == pygame.K_RIGHT:
-                    if self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1 :
+                    if self.enable_dialogue and self.current_dialogue == self.dialogue_9:
+                        self.current_text_number += 1
+                    elif self.enable_dialogue and self.current_text_number < len(self.current_dialogue) - 1 :
                         if self.current_dialogue == self.dialogue_6_1 or self.current_dialogue == self.dialogue_6_2 or self.current_dialogue == self.dialogue_6_3 or self.current_dialogue == self.dialogue_6_4 :
                             if not self.hecube.update_pos() and not self.polyxene.update_pos() and not self.andromaque.update_pos() and not self.cassandre.update_pos():
                                 self.current_text_number += 1
@@ -469,16 +523,18 @@ class Scene:
         GS.pnj.draw(window)
         GS.me.draw(window)
         if self.boat_scene and self.show_png:
-            window.blit(self.current_png, (self.png_x, self.png_y))
+            window.blit(self.png_boat, (self.png_x, self.png_y))
         elif self.chambre_scene and self.show_png:
             window.blit(self.png_boat, (self.png_x, self.png_y))
-            window.blit(self.current_png, (self.png_x, self.png_y-20))
+            window.blit(self.png_chambre, (self.png_x, self.png_y-20))
         if not self.filter2.enabled:
             self.filter1.apply(window)
         if not self.filter1.enabled:
             self.filter2.apply(window)
         if self.filter3.enabled:
             self.filter3.apply(window)
+        if self.fill_screen_black:
+            window.fill((0, 0, 0))
         if self.display_text:
             self.show_text(window, self.text_to_display)
         elif self.enable_dialogue:
@@ -627,14 +683,14 @@ class Scene:
         pygame.draw.polygon(window, arrow_color, arrow_points)   
 
 class OptionsSelectEnd:
-    def __init__(self):
+    def __init__(self, text):
         self.font = pygame.font.Font("AUGUSTUS.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
         self.text_color = (255, 255, 255)  # White text color
         self.background_color = (139, 69, 19)  # Brown background color
         self.dark_brown = (79, 45, 0)
         self.enabled = False
-        self.text_to_display = "Qui sont les véritables vainqueurs de la guerre de Troie?"
-        self.option1 = "Les Grecs"
+        self.text_to_display = text
+        self.option1 = "Les Achéens"
         self.option2 = "Les Troyens"
         self.current_option = 0
 
