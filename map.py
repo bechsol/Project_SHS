@@ -78,7 +78,7 @@ baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,32)),baby.subsurface((32,32,S
 #baby_turkish = [pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),False,True),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,32)),pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),True,False)]
 
 athena = pygame.image.load("athena.png")
-athena_vener = [athena.subsurface((16,651,SPRITE_WIDTH,SPRITE_HEIGHT))]
+athena_vener = [athena.subsurface((0,651,100,SPRITE_HEIGHT))]
 
 androm = pygame.image.load("andromaque.png")
 androm_d = androm.subsurface((0,128,832,64))
@@ -131,7 +131,6 @@ class Scene:
         self.map.load_tmx(map_filename)
         self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array,
                                                 main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj,main_acc_array])
-        #self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
         self.troyenne_once = True
@@ -450,8 +449,7 @@ class Scene:
                             elif self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_1
-                                self.polyxene = Pnj(GS.pnj,300,500,poly_b)
-                                
+                                self.polyxene = Pnj(GS.pnj,300,500,poly_b)                                
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
