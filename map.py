@@ -135,6 +135,9 @@ class Scene:
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
         self.troyenne_once = True
+        self.boat_once = False
+        self.athena_once = False
+        self.room_once = False
         self.filter2 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.01)
         self.filter2.enabled = True
         self.filter2.disable()
@@ -289,8 +292,20 @@ class Scene:
 
         if self.boat_scene and self.png_y > -750:
             self.png_y -= 3
-
-
+        elif self.boat_scene :
+            if not self.boat_once :
+                self.cassandre = Pnj(GS.pnj,560,150,cass_dance)
+                self.hecube = Pnj(GS.pnj,470,150,hecu_dance)
+                self.polyxene = Pnj(GS.pnj,560,250,poly_dance)
+                self.andromaque = Pnj(GS.pnj,470,250,androm_dance)
+                self.boat_once = True
+            if not self.athena_once and self.current_text_number == 1:
+                self.athena = Pnj(GS.pnj,WINDOW_WIDTH - 64,WINDOW_HEIGHT -192,athena_vener)
+                self.athena_once = True
+            self.cassandre.dance()
+            self.hecube.dance()
+            self.polyxene.dance()
+            self.andromaque.dance()
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
             self.current_dialogue = self.dialogue_2
             self.current_text_number = 0
@@ -352,6 +367,7 @@ class Scene:
         elif self.current_dialogue == self.dialogue_7_1 and self.player.y < 500:
             self.show_png = True
             self.boat_scene = True
+            self.player.kill()
             self.current_dialogue = self.dialogue_7_2
             self.current_text_number = 0
             self.enable_dialogue = True
@@ -517,16 +533,17 @@ class Scene:
 #        print(self.player.x,self.player.y)
         self.map.render(window, (self.player.x - WINDOW_WIDTH//2, self.player.y - WINDOW_HEIGHT//2))
         self.player.render(window)
-
-        GS.me.update()
-        GS.pnj.update()
-        GS.pnj.draw(window)
-        GS.me.draw(window)
         if self.boat_scene and self.show_png:
             window.blit(self.png_boat, (self.png_x, self.png_y))
         elif self.chambre_scene and self.show_png:
             window.blit(self.png_boat, (self.png_x, self.png_y))
             window.blit(self.png_chambre, (self.png_x, self.png_y-20))
+        GS.me.update()
+        GS.pnj.update()
+        GS.pnj.draw(window)
+        GS.me.draw(window)
+
+            
         if not self.filter2.enabled:
             self.filter1.apply(window)
         if not self.filter1.enabled:
@@ -604,6 +621,17 @@ class Scene:
             self.cassandre.move(550,200)
             if not self.cassandre.update_pos() :
                 self.cassandre.kill()
+        if self.current_dialogue == self.dialogue_9 and not self.room_once:
+            self.athena.kill()
+            self.cassandre.kill()
+            self.hecube.kill()
+            self.polyxene.kill()
+            self.andromaque.kill()
+            self.room_once = True
+            self.player = Perso(GS.me,WINDOW_WIDTH//2,WINDOW_HEIGHT//2,[main_front_array,main_back_array,main_left_array,main_right_array,
+                                                main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj,main_acc_array])    
+            self.player.image = self.player.images[4][self.player.animation]
+            self.player.pyj = True
         margin_bottom = 32
         box_height = WINDOW_HEIGHT // 3
         border_size = 8
