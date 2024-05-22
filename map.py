@@ -146,7 +146,7 @@ class Scene:
         self.filter4.enabled = False
 
         # For displaying text on the screen
-        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
+        self.font = pygame.font.Font("GFSDidot-Regular.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
         self.text_color = (255, 255, 255)  # White text color
         self.background_color = (139, 69, 19)  # Brown background color
         self.display_text = False
@@ -292,12 +292,13 @@ class Scene:
 
         pygame.mixer.music.load(self.music_files[self.current_music])
         pygame.mixer.music.play(-1)
+
+        self.repair_bug = False
         
 
     def check_update_scene(self):
         new_scene = self
 #        print(self.current_text_number)
-        print(self.player.x, self.player.y)
         if self.boat_scene and self.png_y > -750:
             self.png_y -= 3
         elif self.boat_scene :
@@ -365,9 +366,10 @@ class Scene:
                 self.hecube.kill()
                 self.polyxene.kill()
                 self.andromaque.kill()
-        elif self.troyennes_minigame == True and self.minigame_progress >= 4 and self.enable_dialogue == False:
+        elif self.troyennes_minigame == True and self.minigame_progress >= 4 and self.enable_dialogue == False or self.repair_bug:
+            self.repair_bug = False
             self.player.x = 860
-            self.player.y = 2600
+            self.player.y = 2500
             self.troyennes_minigame = False
             self.option_select.enabled = False
             self.current_dialogue = self.dialogue_6
@@ -500,34 +502,29 @@ class Scene:
                                 self.current_text_number = 0
                                 self.enable_dialogue = True 
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 450 and self.player.x > 300 and self.player.y < 2500 and self.player.y > 2400:
-                        self.option_select.text_to_display = "Qui faut-il donner à Achille ?"
+                        self.option_select.text_to_display = "Qui faut-il donner à Ἀχιλλεύς ?"
                         self.option_select.enabled = True
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 450 and self.player.x > 300 and self.player.y < 3150 and self.player.y > 2950:
-                        self.option_select.text_to_display = "Qui faut-il donner à Neoptolème ?"
+                        self.option_select.text_to_display = "Qui faut-il donner à Νεoπτόλεμος ?"
                         self.option_select.enabled = True
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 1500 and self.player.x > 1300 and self.player.y < 2500 and self.player.y > 2400:
-                        self.option_select.text_to_display = "Qui faut-il donner à Agamemnon ?"
+                        self.option_select.text_to_display = "Qui faut-il donner à Ἀγαμέμνων ?"
                         self.option_select.enabled = True
                     elif not self.option_select.enabled and self.troyennes_minigame and self.player.x < 1500 and self.player.x > 1300 and self.player.y < 3150 and self.player.y > 2950:
-                        self.option_select.text_to_display = "Qui faut-il donner à Ulysse ?"
+                        self.option_select.text_to_display = "Qui faut-il donner à Ὀδυσσεύς ?"
                         self.option_select.enabled = True
                     
 
 
                 
                 if event.key == pygame.K_k:
-                    if self.enable_dialogue == False:
-                        self.current_dialogue = self.dialogue_2
-                        self.enable_dialogue = True
-                    elif self.enable_dialogue == True:
-                        self.enable_dialogue = False
-                        self.current_text_number = 0
+                    if self.player.speed == 3:
+                        self.player.speed = 15
+                    else:
+                        self.player.speed = 3
                 
                 if event.key == pygame.K_l:
-                    if self.option_select.enabled and not self.enable_dialogue:
-                        self.option_select.enabled = False
-                    elif not self.enable_dialogue:
-                        self.option_select.enabled = True
+                    self.repair_bug = True
 
                 if event.key == pygame.K_RIGHT:
                     if self.enable_dialogue and self.current_dialogue == self.dialogue_9:
@@ -744,7 +741,7 @@ class Scene:
 
 class OptionsSelectEnd:
     def __init__(self, text):
-        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
+        self.font = pygame.font.Font("GFSDidot-Regular.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
         self.text_color = (255, 255, 255)  # White text color
         self.background_color = (139, 69, 19)  # Brown background color
         self.dark_brown = (79, 45, 0)
@@ -841,7 +838,7 @@ class BabyScene(Scene):
         self.enable_dialogue = True
         self.current_text_number = 0
 
-        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
+        self.font = pygame.font.Font("GFSDidot-Regular.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
         self.text_color = (255, 255, 255)  # White text color
         self.background_color = (139, 69, 19)  # Brown background color
         self.display_text = False
@@ -883,7 +880,7 @@ class BabyScene(Scene):
                     self.count += 1
                     
         if self.lunch_bb_scene:
-            if pygame.time.get_ticks() - self.start >= 10000 and self.lunch_bb == False:
+            if pygame.time.get_ticks() - self.start >= 7000 and self.lunch_bb == False:
                 self.lunch_bb = True
                 self.baby.move(self.baby.x - self.count*10,285)  
             if self.lunch_bb :                
@@ -1000,13 +997,13 @@ class BabyScene(Scene):
 
 class OptionsSelectTroyennes:
     def __init__(self, text):
-        self.font = pygame.font.Font("AUGUSTUS.ttf", 20)  # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
+        self.font = pygame.font.Font("GFSDidot-Regular.ttf", 20)  # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
         self.text_color = (255, 255, 255)  # White text color
         self.background_color = (139, 69, 19)  # Brown background color
         self.dark_brown = (79, 45, 0)
         self.enabled = False
         self.text_to_display = text
-        self.options = ["Polyxène", "Andromaque", "Cassandre", "Hécube"]
+        self.options = ["Πολυξένη", "Ἀνδρομάχη", "Κασσάνδρα", "Ἑκάϐη"]
         self.current_option = 0
         self.option_size_y = 70
         self.option_size_x = 210
