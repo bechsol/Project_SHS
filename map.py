@@ -131,7 +131,6 @@ class Scene:
         self.map.load_tmx(map_filename)
         self.player = Perso(GS.me, 4128, 2848,[main_front_array,main_back_array,main_left_array,main_right_array,
                                                 main_front_pyj,main_back_pyj,main_left_pyj,main_right_pyj,main_acc_array])
-        #self.cassandre = Pnj(GS.pnj,WINDOW_WIDTH//2 + 64,WINDOW_HEIGHT//2 + 64,cass_dance)
         self.filter1 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=1)
         self.filter1.enabled = False
         self.troyenne_once = True
@@ -448,8 +447,7 @@ class Scene:
                             elif self.player.x < 500 and self.player.x > 250 and self.player.y < 2500 and self.player.y > 2400:
                                 self.option_select.enabled = False
                                 self.current_dialogue = self.dialogue_6_1
-                                self.polyxene = Pnj(GS.pnj,300,500,poly_b)
-                                
+                                self.polyxene = Pnj(GS.pnj,300,500,poly_b)                                
                                 self.minigame_progress += 1
                                 self.current_text_number = 0
                                 self.enable_dialogue = True
