@@ -78,7 +78,7 @@ baby_turkish = [baby.subsurface((0,48,SPRITE_WIDTH,32)),baby.subsurface((32,32,S
 #baby_turkish = [pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),False,True),baby.subsurface((32,32,SPRITE_WIDTH,32)),baby.subsurface((64,48,SPRITE_WIDTH,32)),pygame.transform.flip(baby.subsurface((32,32,SPRITE_WIDTH,32)),True,False)]
 
 athena = pygame.image.load("athena.png")
-athena_vener = [athena.subsurface((16,651,SPRITE_WIDTH,SPRITE_HEIGHT))]
+athena_vener = [athena.subsurface((0,651,100,SPRITE_HEIGHT))]
 
 androm = pygame.image.load("andromaque.png")
 androm_d = androm.subsurface((0,128,832,64))
