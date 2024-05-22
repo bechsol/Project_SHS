@@ -31,6 +31,8 @@ clock = pygame.time.Clock()
 #scene_1 = TroyennesScene("actual_map_stp_marche.tmx")
 scene_1 = Scene("map_final_final.tmx")
 
+pygame.mixer.init()
+
 
 # Game loop
 running = True

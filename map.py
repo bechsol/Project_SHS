@@ -143,6 +143,8 @@ class Scene:
         self.filter2.disable()
         self.filter3 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (175, 30, 30), speed=0.01, max_alpha=50)
         self.filter3.enabled = False
+        self.filter4 = Filter((WINDOW_WIDTH, WINDOW_HEIGHT), (0, 0, 0), speed=0.005)
+        self.filter4.enabled = False
 
         # For displaying text on the screen
         self.font = pygame.font.Font("AUGUSTUS.ttf", 20)   # credit: Manfred Klein, https://www.dafont.com/fr/augustus.font
@@ -286,9 +288,17 @@ class Scene:
 
         self.fill_screen_black = False
 
+        self.music_files = ["musique/musique_1.mp3", "musique/musique_2.mp3", "musique/musique_3.mp3", "musique/musique_4.mp3", "musique/musique_1.mp3", "musique/musique_5.mp3", "musique/musique_6.mp3", "musique/musique_7.mp3"]
+        self.current_music = 0
+
+        pygame.mixer.music.load(self.music_files[self.current_music])
+        pygame.mixer.music.play(-1)
+        
+
     def check_update_scene(self):
         new_scene = self
 #        print(self.current_text_number)
+        print(self.current_music)
 
         if self.boat_scene and self.png_y > -750:
             self.png_y -= 3
@@ -307,10 +317,12 @@ class Scene:
             self.polyxene.dance()
             self.andromaque.dance()
         if self.current_dialogue == self.dialogue_1 and self.player.x < 3231 and self.player.y < 2125:
+            self.next_music()
             self.current_dialogue = self.dialogue_2
             self.current_text_number = 0
             self.enable_dialogue = True
         elif self.current_dialogue == self.dialogue_2 and self.player.x < 2940 and self.player.y < 1675 and self.player.x > 2800 and self.player.y > 1500:
+            self.next_music()
             self.current_dialogue = self.dialogue_2_2
             self.current_text_number = 0
             self.enable_dialogue = True
@@ -326,15 +338,18 @@ class Scene:
             self.current_dialogue = self.dialogue_4
             self.current_text_number = 0
             self.enable_dialogue = True
+            new_scene.current_music = self.current_music + 1
+            new_scene.play_music()
         elif self.current_dialogue == self.dialogue_4 and self.player.x < 1712 and self.player.y > 2062:
-            self.player.x = 1000
-            self.player.y = 2700
+            self.player.x = 860
+            self.player.y = 2600
             self.current_dialogue = self.dialogue_5
             self.current_text_number = 0
             self.enable_dialogue = True
             self.troyennes_minigame = True
             self.filter2.enabled = True
             self.filter2.disable()
+            self.next_music()
         elif self.current_dialogue == self.dialogue_5 :
             if self.current_text_number == 1 and self.troyenne_once:
                 self.troyenne_once = False
@@ -353,6 +368,8 @@ class Scene:
                 self.polyxene.kill()
                 self.andromaque.kill()
         elif self.troyennes_minigame == True and self.minigame_progress >= 4 and self.enable_dialogue == False:
+            self.player.x = 860
+            self.player.y = 2600
             self.troyennes_minigame = False
             self.option_select.enabled = False
             self.current_dialogue = self.dialogue_6
@@ -375,6 +392,7 @@ class Scene:
             self.enable_dialogue = True
             self.filter3.enabled = True
             #self.filter3.enable()
+            self.next_music()
         elif self.current_dialogue == self.dialogue_7_2 and self.current_text_number == 3:
             self.fill_screen_black = True
             self.show_png = False
@@ -391,6 +409,8 @@ class Scene:
             self.current_text_number = 0
             self.enable_dialogue = True
         elif self.current_dialogue == self.dialogue_9 and self.current_text_number == 1:
+            self.filter2.enabled = True
+            self.filter2.disable()
             self.fill_screen_black = False
             self.show_png = True
             self.boat_scene = False
@@ -400,6 +420,7 @@ class Scene:
             self.current_dialogue = self.dialogue_10
             self.current_text_number = 0
             self.enable_dialogue = True
+            self.next_music()
         return new_scene
 
     
@@ -711,6 +732,18 @@ class Scene:
         ]
 
         pygame.draw.polygon(window, arrow_color, arrow_points)   
+    
+    def next_music(self):
+        self.current_music += 1
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(self.music_files[self.current_music])
+        pygame.mixer.music.play(-1)
+
+    def play_music(self):
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(self.music_files[self.current_music])
+        pygame.mixer.music.play(-1)
+
 
 class OptionsSelectEnd:
     def __init__(self, text):
@@ -875,6 +908,8 @@ class BabyScene(Scene):
                     new_scene.player.y = 782
                     new_scene.current_dialogue = new_scene.dialogue_4
                     new_scene.enable_dialogue = True
+                    new_scene.current_music = self.current_music + 1
+                    new_scene.play_music()
                     self.player.kill()
         return new_scene
     
